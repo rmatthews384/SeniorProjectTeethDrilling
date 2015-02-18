@@ -6,7 +6,6 @@ Obj/
 UnityGenerated/
 Library/
 Assets/AssetStoreTools*
-Assets/Scripts
 
 # ===================================== #
 # Visual Studio / MonoDevelop generated #
@@ -21,4 +20,3 @@ ExportedObj/
 *.user
 *.unityproj
 *.booproj
-Assets/Scripts.meta
