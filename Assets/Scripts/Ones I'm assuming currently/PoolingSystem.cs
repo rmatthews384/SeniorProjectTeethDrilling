@@ -46,6 +46,8 @@ public sealed class PoolingSystem : MonoBehaviour {
 	CubeController cc;
 	static ArrayList itempositions = new ArrayList();
 	static ArrayList items = new ArrayList ();
+
+
 	[System.Serializable]
 	public class PoolingItems
 	{
@@ -114,11 +116,8 @@ public sealed class PoolingSystem : MonoBehaviour {
 				startvector.y -= .19f;
 			}
 		}
-		for(int i = 0; i < itempositions.Count; i++)
-		{
-			Debug.Log(itempositions[i]);
-		}
 	}
+
 
 
 	public static void DestroyAPS(GameObject myObject)
@@ -153,19 +152,27 @@ public sealed class PoolingSystem : MonoBehaviour {
 			int decay = cc.getDecay ();
 			newObject.transform.position = itemPosition;
 			newObject.transform.rotation = itemRotation;
-			Debug.Log("Added: " + itemPosition.ToString("F10"));
 			newObject.SetActive(true);
 			itempositions.Add(itemPosition);
 			items.Add(newObject);
+			int index = 0;
 			if(!setDecay)
 			{
-				Debug.Log(itempositions.Contains(new Vector3(-0.38f,0.57f,1.14f)));
 				Vector3 newposition = itemPosition;
-				Debug.Log("New position1: " + newposition.ToString("F10"));
 				newposition.z -= .19f;
-				Debug.Log(new Vector3(-0.38f,0.57f,1.14f) == newposition);
-				int index = itempositions.IndexOf(newposition);
-				Debug.Log("New position2: " + newposition.ToString("F10") + " index :" + index);
+				Debug.Log(itempositions.Count);
+				for(int i =0; i < itempositions.Count; i++)
+				{
+					if((Vector3)itempositions[i] == newposition)
+					{
+						index = i;
+						break;
+					}
+					else
+					{
+						index = -1;
+					}
+				}
 				GameObject mygameobject = (GameObject) items[index];
 				cc = mygameobject.GetComponent<CubeController>();
 				decay = cc.getDecay();
