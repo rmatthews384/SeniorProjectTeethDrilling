@@ -20,10 +20,13 @@ public class CubeController : MonoBehaviour {
 		return this.decayvalue;
 	}
 
+	void OnCollisionEnter(Collision col)
+	{
+	}
+
 	public void setMaterial(int material)
 	{
 		gameObject.renderer.material = materials [material];
-		Debug.Log ("setMaterial");
 		decayvalue = material;
 	}
 	// Update is called once per frame

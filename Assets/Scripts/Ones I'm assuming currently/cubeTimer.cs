@@ -40,7 +40,6 @@ public class cubeTimer : MonoBehaviour {
 	// Update is called once per frame
 	void Update () 
 	{
-		Debug.Log (timer);
 		if(hit)
 		{
 			position = Input.mousePosition;
@@ -58,9 +57,23 @@ public class cubeTimer : MonoBehaviour {
 		{
 			timer = 0;
 			Vector3 myposition = this.gameObject.transform.position;
+			Vector3 myoldposition;
 			myposition.z += .19f;
 			PoolingSystemExtensions.DestroyAPS(this.gameObject);
-			pS.InstantiateAPS("cube", myposition, Quaternion.identity);
+			pS.InstantiateAPS("cube", myposition, Quaternion.identity, true);
+			myoldposition = myposition;
+			myposition.x += .19f;
+			pS.InstantiateAPS("cube", myposition, Quaternion.identity, false);
+			myposition = myoldposition;
+			myposition.x -= .19f;
+			pS.InstantiateAPS("cube", myposition, Quaternion.identity, false);
+			myposition = myoldposition;
+			myposition.y += .19f;
+			pS.InstantiateAPS("cube", myposition, Quaternion.identity, false);
+			myposition = myoldposition;
+			myposition.y -= .19f;
+			pS.InstantiateAPS("cube", myposition, Quaternion.identity, false);
+
 		}
 	}
 }

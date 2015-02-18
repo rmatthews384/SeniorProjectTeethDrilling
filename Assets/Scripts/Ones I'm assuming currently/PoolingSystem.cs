@@ -42,13 +42,17 @@ using System.Collections.Generic;
 /// </summary>
 public sealed class PoolingSystem : MonoBehaviour {
 
+
 	CubeController cc;
+	static ArrayList itempositions = new ArrayList();
+	static ArrayList items = new ArrayList ();
 	[System.Serializable]
 	public class PoolingItems
 	{
 		public GameObject prefab;
 		public int amount;
 	}
+
 
 	public static PoolingSystem Instance;
 
@@ -94,6 +98,8 @@ public sealed class PoolingSystem : MonoBehaviour {
 				{
 					startvector.x -= .19f;
 					newItem = (GameObject) Instantiate(poolingItems[i].prefab, startvector, Quaternion.identity);
+					itempositions.Add(startvector);
+					items.Add(newItem);
 					cc = newItem.GetComponent<CubeController>();
 					newItem.SetActive(true);
 					pooledItems[i].Add(newItem);
@@ -107,15 +113,18 @@ public sealed class PoolingSystem : MonoBehaviour {
 				}
 				startvector.y -= .19f;
 			}
-			newItem = (GameObject) Instantiate(poolingItems[i].prefab);
-			newItem.SetActive(false);
-			pooledItems[i].Add(newItem);
-			newItem.transform.parent = transform;
+		}
+		for(int i = 0; i < itempositions.Count; i++)
+		{
+			Debug.Log(itempositions[i]);
 		}
 	}
 
+
 	public static void DestroyAPS(GameObject myObject)
 	{
+		itempositions.Remove (myObject.transform.position);
+		items.Remove (myObject);
 		myObject.SetActive(false);
 	}
 
@@ -132,21 +141,47 @@ public sealed class PoolingSystem : MonoBehaviour {
 		return newObject;
 	}
 
-	public GameObject InstantiateAPS (string itemType, Vector3 itemPosition, Quaternion itemRotation)
+
+
+	public GameObject InstantiateAPS (string itemType, Vector3 itemPosition, Quaternion itemRotation, bool setDecay)
 	{
 
 		GameObject newObject = GetPooledItem(itemType);
-		cc = newObject.GetComponent<CubeController> ();
-		int decay = cc.getDecay ();
-		Debug.Log ("Decay: "+ decay);
-		newObject.transform.position = itemPosition;
-		newObject.transform.rotation = itemRotation;
-		newObject.SetActive(true);
-		if(decay > 0)
+		if(!itempositions.Contains(itemPosition))
 		{
-			cc.setMaterial(decay - 1);
+			cc = newObject.GetComponent<CubeController> ();
+			int decay = cc.getDecay ();
+			newObject.transform.position = itemPosition;
+			newObject.transform.rotation = itemRotation;
+			Debug.Log("Added: " + itemPosition.ToString("F10"));
+			newObject.SetActive(true);
+			itempositions.Add(itemPosition);
+			items.Add(newObject);
+			if(!setDecay)
+			{
+				Debug.Log(itempositions.Contains(new Vector3(-0.38f,0.57f,1.14f)));
+				Vector3 newposition = itemPosition;
+				Debug.Log("New position1: " + newposition.ToString("F10"));
+				newposition.z -= .19f;
+				Debug.Log(new Vector3(-0.38f,0.57f,1.14f) == newposition);
+				int index = itempositions.IndexOf(newposition);
+				Debug.Log("New position2: " + newposition.ToString("F10") + " index :" + index);
+				GameObject mygameobject = (GameObject) items[index];
+				cc = mygameobject.GetComponent<CubeController>();
+				decay = cc.getDecay();
+				if(decay > 0)
+				{
+					cc.setMaterial(decay-1);
+				}
+
+			}
+			else if(decay > 0)
+			{
+				cc.setMaterial(decay - 1);
+			}
 		}
 		return newObject;
+
 	}
 
 	public GameObject InstantiateAPS (string itemType, Vector3 itemPosition, Quaternion itemRotation, GameObject myParent)
