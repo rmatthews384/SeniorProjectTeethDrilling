@@ -27,7 +27,7 @@ public class cubeTimer : MonoBehaviour {
 
 	void OnMouseUpAsButton()
 	{
-		Debug.Log ("OFF");
+		hit = false;
 
 	}
 

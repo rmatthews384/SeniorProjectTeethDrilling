@@ -46,7 +46,7 @@ public sealed class PoolingSystem : MonoBehaviour {
 	CubeController cc;
 	static ArrayList itempositions = new ArrayList();
 	static ArrayList items = new ArrayList ();
-
+	static ArrayList destroyed = new ArrayList();
 
 	[System.Serializable]
 	public class PoolingItems
@@ -122,6 +122,7 @@ public sealed class PoolingSystem : MonoBehaviour {
 
 	public static void DestroyAPS(GameObject myObject)
 	{
+		destroyed.Add (myObject.transform.position);
 		itempositions.Remove (myObject.transform.position);
 		items.Remove (myObject);
 		myObject.SetActive(false);
@@ -146,8 +147,16 @@ public sealed class PoolingSystem : MonoBehaviour {
 	{
 
 		GameObject newObject = GetPooledItem(itemType);
+
 		if(!itempositions.Contains(itemPosition))
 		{
+			for(int i =0; i < destroyed.Count; i++)
+			{
+				if((Vector3)destroyed[i] == itemPosition)
+				{
+					return newObject;
+				}
+			}
 			cc = newObject.GetComponent<CubeController> ();
 			int decay = cc.getDecay ();
 			newObject.transform.position = itemPosition;
@@ -160,7 +169,6 @@ public sealed class PoolingSystem : MonoBehaviour {
 			{
 				Vector3 newposition = itemPosition;
 				newposition.z -= .19f;
-				Debug.Log(itempositions.Count);
 				for(int i =0; i < itempositions.Count; i++)
 				{
 					if((Vector3)itempositions[i] == newposition)
@@ -178,6 +186,7 @@ public sealed class PoolingSystem : MonoBehaviour {
 				decay = cc.getDecay();
 				if(decay > 0)
 				{
+					cc = newObject.GetComponent<CubeController> ();
 					cc.setMaterial(decay-1);
 				}
 
