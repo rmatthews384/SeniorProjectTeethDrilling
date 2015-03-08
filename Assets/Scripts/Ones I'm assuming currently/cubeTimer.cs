@@ -3,76 +3,73 @@ using System.Collections;
 
 public class cubeTimer : MonoBehaviour {
 
-	int id;
 	float timer;
-	bool hit;
-	bool nodown;
-	bool destroy;
-	Vector3 position;
-	Vector3 oldposition = new Vector3(-100,-100,-100);
+	bool hover;
 	PoolingSystem pS;
+	CubeController cc;
+	Global global;
 
 	// Use this for initialization
 	void Start () 
 	{
+		global = (GameObject.FindGameObjectWithTag ("MainCamera")).GetComponent<Global>();
+		cc = gameObject.GetComponent<CubeController>();
 		pS = PoolingSystem.Instance;
 		timer = 0;
-		hit = false;
-	}
-
-	public void setId(int id)
-	{
-		this.id = id;
-	}
-
-	void OnMouseUpAsButton()
-	{
-		hit = false;
-
+		hover = false;
 	}
 
 	void OnMouseDown()
 	{
-		hit = true;
+		Debug.Log ("Down");
+		global.setMouseDown (true);
 
+	}
+
+	void OnMouseEnter()
+	{
+		hover = true;
+	}
+
+	void OnMouseExit()
+	{
+		hover = false;
 	}
 
 	// Update is called once per frame
 	void Update () 
 	{
-		if(hit)
+		if (Input.GetMouseButtonUp (0))
 		{
-			position = Input.mousePosition;
-			if(position == oldposition || oldposition == new Vector3(-100,-100,-100))
-			{
-			timer += Time.deltaTime;
-			}
-			else
-			{
-				hit = false;
-			}
-			oldposition = position;
+			global.setMouseDown(false);
 		}
-		if(timer >= 1)
+
+		if(global.getMouseDown() && hover)
 		{
+			timer += Time.deltaTime;
+		}
+		if(timer >= 2)
+		{
+			Debug.Log(cc.getID());
 			timer = 0;
 			Vector3 myposition = this.gameObject.transform.position;
 			Vector3 myoldposition;
-			myposition.z += .19f;
-			PoolingSystemExtensions.DestroyAPS(this.gameObject);
-			pS.InstantiateAPS("cube", myposition, Quaternion.identity, true);
+			myposition.z += .019f;
+			pS.InstantiateAPS("cube", myposition, Quaternion.identity);
 			myoldposition = myposition;
-			myposition.x += .19f;
-			pS.InstantiateAPS("cube", myposition, Quaternion.identity, false);
+			myposition.x += .019f;
+			pS.InstantiateAPS("cube", myposition, Quaternion.identity);
 			myposition = myoldposition;
-			myposition.x -= .19f;
-			pS.InstantiateAPS("cube", myposition, Quaternion.identity, false);
+			myposition.x -= .019f;
+			pS.InstantiateAPS("cube", myposition, Quaternion.identity);
 			myposition = myoldposition;
-			myposition.y += .19f;
-			pS.InstantiateAPS("cube", myposition, Quaternion.identity, false);
+			myposition.y += .019f;
+			pS.InstantiateAPS("cube", myposition, Quaternion.identity);
 			myposition = myoldposition;
-			myposition.y -= .19f;
-			pS.InstantiateAPS("cube", myposition, Quaternion.identity, false);
+			myposition.y -= .019f;
+			pS.InstantiateAPS("cube", myposition, Quaternion.identity);
+			
+			PoolingSystemExtensions.DestroyAPS(this.gameObject);
 
 		}
 	}

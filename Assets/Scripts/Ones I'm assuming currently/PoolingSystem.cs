@@ -40,12 +40,69 @@ using System.Collections.Generic;
 /// <para>Author: Sumit Das (http://swiftfingergames.blogspot.com)</para>
 /// <para>Support: swiftfingergames@gmail.com </para>
 /// </summary>
+
+public class Vox
+{
+	Vector3 position;
+	Vector3 listPos;
+	GameObject vox;
+	int level;
+	int decay;
+	
+	public Vox(Vector3 position, Vector3 listPos, int level, GameObject vox)
+	{
+		this.position = position;
+		this.listPos = listPos;
+		this.level = level;
+		this.vox = vox;
+	}
+	
+	public void setLevel(int level)
+	{
+		this.level = level;
+	}
+	
+	public void setDecay(int decay)
+	{
+		this.decay = decay;
+	}
+
+	public Vector3 getPosition()
+	{
+		return this.position;
+	}
+
+	public Vector3 getListPos()
+	{
+		return this.listPos;
+	}
+
+	public int getLevel()
+	{
+		return this.level;
+	}
+	
+	public int getDecay()
+	{
+		return this.decay;
+	}
+	
+	public GameObject getVox()
+	{
+		return this.vox;
+	}
+}
+
+
+
 public sealed class PoolingSystem : MonoBehaviour {
 	
-	
+	int id = 0;
 	CubeController cc;
-	static ArrayList itempositions = new ArrayList();
-	static ArrayList items = new ArrayList ();
+	public List<Vox> heavyDecay = new List<Vox>();
+	public List<List<List<Vox>>> posGrid = new List<List<List<Vox>>>();
+	static List<List<Vox>> midList = new List<List<Vox>>();
+	static List<Vox> innerList = new List<Vox>();
 	static ArrayList destroyed = new ArrayList();
 	
 	[System.Serializable]
@@ -55,7 +112,7 @@ public sealed class PoolingSystem : MonoBehaviour {
 		public int amount;
 	}
 	
-	
+
 	public static PoolingSystem Instance;
 	
 	/// <summary>
@@ -92,110 +149,89 @@ public sealed class PoolingSystem : MonoBehaviour {
 			int poolingAmount;
 			if(poolingItems[i].amount > 0) poolingAmount = poolingItems[i].amount;
 			else poolingAmount = defaultPoolAmount;
-			
-			for(int j=0; j<10; j++)
+			for(int j=0; j<70; j++)
 			{
 				startvector.x = .95f;
-				for(int k = 0; k < 10; k++)
+				for(int k = 0; k < 70; k++)
 				{
-					startvector.x -= .19f;
+					startvector.x -= .019f;
 					newItem = (GameObject) Instantiate(poolingItems[i].prefab, startvector, Quaternion.identity);
-					itempositions.Add(startvector);
-					items.Add(newItem);
+					Vector3 listPos = new Vector3(0,j,k);
+					Vox myVox = new Vox(startvector, listPos, 0, newItem);
+					innerList.Add(myVox);
 					cc = newItem.GetComponent<CubeController>();
+					cc.setID(id);
+					id++;
 					newItem.SetActive(true);
 					pooledItems[i].Add(newItem);
 					newItem.transform.parent = transform;
-					if(j >=2 && j <=7 && k >= 1 && k <= 8)
-					{
-						int rand = Random.Range(0,5);
-						cc.setMaterial(rand);
-					}
 					
 				}
-				startvector.y -= .19f;
+				midList.Add(innerList);
+				innerList = new List<Vox>();
+				startvector.y -= .019f;
 			}
 		}
+		posGrid.Add (midList);
+		Debug.Log (posGrid.Count);
+		for(int i = 0; i < 100; i++)
+		{
+			int x = Random.Range(3,67);
+			int y = Random.Range(3,67);
+			Vox myVox = posGrid[0][x][y];
+			myVox.setDecay(4);
+			GameObject vox = myVox.getVox();
+			cc = vox.GetComponent<CubeController>();
+			cc.setMaterial(4);
+			heavyDecay.Add(myVox);
+		}
+		Instantiate (Resources.Load ("decay"));
 	}
-	
+
 	
 	
 	public static void DestroyAPS(GameObject myObject)
 	{
 		destroyed.Add (myObject.transform.position);
-		itempositions.Remove (myObject.transform.position);
-		items.Remove (myObject);
 		myObject.SetActive(false);
 	}
 	
 	public GameObject InstantiateAPS (string itemType)
 	{
 		GameObject newObject = GetPooledItem(itemType);
-		cc = newObject.GetComponent<CubeController> ();
-		int decay = cc.getDecay ();
 		newObject.SetActive(true);
-		if(decay > 0)
-		{
-			cc.setMaterial(decay - 1);
-		}
 		return newObject;
 	}
 	
 	
 	
-	public GameObject InstantiateAPS (string itemType, Vector3 itemPosition, Quaternion itemRotation, bool setDecay)
+	public GameObject InstantiateAPS (string itemType, Vector3 itemPosition, Quaternion itemRotation)
 	{
 		
 		GameObject newObject = GetPooledItem(itemType);
-		
-		if(!itempositions.Contains(itemPosition))
+		Vector3 newposition = itemPosition;
+		newposition.z -= .019f;
+		if(itemPosition.x > .95f || itemPosition.x < -.95f || itemPosition.y > .95f || itemPosition.y < -.95f)
 		{
-			for(int i =0; i < destroyed.Count; i++)
+			return newObject;
+		}
+
+
+		for(int i =0; i < destroyed.Count; i++)
+		{
+			Vector3 x = (Vector3)destroyed[i];
+			if((Vector3)destroyed[i] == itemPosition)
 			{
-				if((Vector3)destroyed[i] == itemPosition)
-				{
-					return newObject;
-				}
-			}
-			cc = newObject.GetComponent<CubeController> ();
-			int decay = cc.getDecay ();
-			newObject.transform.position = itemPosition;
-			newObject.transform.rotation = itemRotation;
-			newObject.SetActive(true);
-			itempositions.Add(itemPosition);
-			items.Add(newObject);
-			int index = 0;
-			if(!setDecay)
-			{
-				Vector3 newposition = itemPosition;
-				newposition.z -= .19f;
-				for(int i =0; i < itempositions.Count; i++)
-				{
-					if((Vector3)itempositions[i] == newposition)
-					{
-						index = i;
-						break;
-					}
-					else
-					{
-						index = -1;
-					}
-				}
-				GameObject mygameobject = (GameObject) items[index];
-				cc = mygameobject.GetComponent<CubeController>();
-				decay = cc.getDecay();
-				if(decay > 0)
-				{
-					cc = newObject.GetComponent<CubeController> ();
-					cc.setMaterial(decay-1);
-				}
-				
-			}
-			else if(decay > 0)
-			{
-				cc.setMaterial(decay - 1);
+				return newObject;
 			}
 		}
+	
+		cc = newObject.GetComponent<CubeController> ();
+		newObject.transform.position = itemPosition;
+		newObject.transform.rotation = itemRotation;
+
+		newObject.SetActive (true);
+			
 		return newObject;
 		
 	}
@@ -247,8 +283,11 @@ public sealed class PoolingSystem : MonoBehaviour {
 				{
 					GameObject newItem = (GameObject) Instantiate(poolingItems[i].prefab);
 					newItem.SetActive(false);
+					cc = newItem.GetComponent<CubeController>();
+					cc.setID(id);
 					pooledItems[i].Add(newItem);
 					newItem.transform.parent = transform;
+					id++;
 					return newItem;
 				}
 				

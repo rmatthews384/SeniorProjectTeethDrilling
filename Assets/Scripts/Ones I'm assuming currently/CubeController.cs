@@ -5,6 +5,7 @@ public class CubeController : MonoBehaviour {
 
 	public Material[] materials;
 	int decayvalue;
+	int id;
 
 	void Awake ()
 	{
@@ -20,10 +21,19 @@ public class CubeController : MonoBehaviour {
 		return this.decayvalue;
 	}
 
+	public void setID(int ID)
+	{
+		this.id = ID;
+	}
+
+	public int getID()
+	{
+		return id;
+	}
+
 	public void setMaterial(int material)
 	{
 		gameObject.renderer.material = materials [material];
-		Debug.Log ("setMaterial");
 		decayvalue = material;
 	}
 	// Update is called once per frame
