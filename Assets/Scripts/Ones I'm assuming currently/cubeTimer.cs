@@ -21,6 +21,7 @@ public class cubeTimer : MonoBehaviour {
 
 	void OnMouseDown()
 	{
+		Debug.Log ("Down");
 		global.setMouseDown (true);
 
 	}
@@ -49,6 +50,7 @@ public class cubeTimer : MonoBehaviour {
 		}
 		if(timer >= 2)
 		{
+			Debug.Log(cc.getID());
 			timer = 0;
 			Vector3 myposition = this.gameObject.transform.position;
 			Vector3 myoldposition;

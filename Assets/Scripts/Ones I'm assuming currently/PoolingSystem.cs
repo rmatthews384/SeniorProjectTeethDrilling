@@ -1,4 +1,4 @@
-//========================================================================================================================
+﻿//========================================================================================================================
 // Advanced Pooling System - Copyright © 2014 Sumit Das (SwiftFinger Games)
 //
 // Please direct any bugs/comments/suggestions to swiftfingergames@gmail.com
@@ -141,6 +141,7 @@ public sealed class PoolingSystem : MonoBehaviour {
 		Vector3 startvector;
 		startvector = new Vector3 (.95f, .95f, 0);
 		pooledItems = new List<GameObject>[poolingItems.Length];
+		
 		for(int i=0; i<poolingItems.Length; i++)
 		{
 			pooledItems[i] = new List<GameObject>();
@@ -208,12 +209,8 @@ public sealed class PoolingSystem : MonoBehaviour {
 	{
 		
 		GameObject newObject = GetPooledItem(itemType);
-		Vector3 zeroposition = itemPosition;
-		Vector3 oldPosition = itemPosition;
-		oldPosition.z -= .019f;
-		zeroposition.z = 0;
-		bool found = false;
-		int decay = 1;
+		Vector3 newposition = itemPosition;
+		newposition.z -= .019f;
 		if(itemPosition.x > .95f || itemPosition.x < -.95f || itemPosition.y > .95f || itemPosition.y < -.95f)
 		{
 			return newObject;
@@ -222,127 +219,17 @@ public sealed class PoolingSystem : MonoBehaviour {
 
 		for(int i =0; i < destroyed.Count; i++)
 		{
+			Vector3 x = (Vector3)destroyed[i];
 			if((Vector3)destroyed[i] == itemPosition)
 			{
 				return newObject;
 			}
-		}
-		bool breakif = false;
-		int count = posGrid.Count;
-		while(count > 0)
-		{
-			for(int i = 0; i < (posGrid[posGrid.Count-count].Count); i++)
-			{
-				for(int j = 0; j < (posGrid[posGrid.Count-count][i].Count); j++)
-				{
-					if(posGrid[posGrid.Count-count][i][j] != null && posGrid[posGrid.Count-count][i][j].getPosition() == itemPosition)
-					{
-						return newObject;
-					}
-					if(!breakif && posGrid[posGrid.Count-count][i][j].getPosition() == oldPosition)
-					{
-						Debug.Log("found");
-						decay = posGrid[0][i][j].getDecay();
-						Debug.Log(decay);
-						found = true;
-						breakif = true;
-						break;
-					}
-					else if(!breakif && posGrid[posGrid.Count-count][i][j].getPosition() == zeroposition)
-					{
-						Debug.Log("not found");
-						decay = posGrid[0][i][j].getDecay();
-						Debug.Log (decay);
-						found = false;
-						breakif = true;
-						break;
-					}
-				}
-			}
-			count--;
 		}
 	
 		cc = newObject.GetComponent<CubeController> ();
 		newObject.transform.position = itemPosition;
 		newObject.transform.rotation = itemRotation;
 
-		float vectory = 0;
-		float vectorz = 0;
-		if(itemPosition.x >= 0)
-		{
-			vectory = itemPosition.x/.019f;
-			vectory = 50f - vectory;
-		}
-		else
-		{
-			vectory = (itemPosition.x*(-1))/.019f + 49f;
-		}
-		if(itemPosition.y > 0)
-		{
-			vectorz = itemPosition.y/.019f;
-			vectorz = 50f - vectorz;
-		}
-		else
-		{
-			vectorz = (itemPosition.y*(-1))/.019f + 49f;
-		}
-		
-		Vector3 listPos = new Vector3 ((int)(itemPosition.z / .019f), vectory, vectorz);
-		Vox myVox = new Vox(itemPosition, listPos, (int)(itemPosition.z/.019f), newObject);
-
-		if(found)
-		{
-			if(decay > 0)
-			{
-				cc.setMaterial(decay-1);
-				myVox.setDecay (decay-1);
-			}
-			else
-			{
-				cc.setMaterial(0);
-				myVox.setDecay (0);
-			}
-		}
-		else
-		{
-			int multiple = (int)(itemPosition.z/.019f);
-			decay = decay - multiple;
-			if(decay > 0)
-			{
-				cc.setMaterial(decay);
-				myVox.setDecay (decay);
-			}
-			else
-			{
-				cc.setMaterial(0);
-				myVox.setDecay (0);
-			}
-		}
-
-		if(((int)myVox.getListPos().x) > posGrid.Count-1)
-		{
-			innerList = new List<Vox>();
-			midList = new List<List<Vox>>();
-			innerList.Add(myVox);
-			midList.Add(innerList);
-			posGrid.Add(midList);
-		}
-		else if((int)myVox.getListPos().y > posGrid[(int)myVox.getListPos().x].Count-1)
-		{
-			innerList = new List<Vox>();
-			midList = new List<List<Vox>>();
-			innerList.Add(myVox);
-			midList.Add(innerList);
-			posGrid.Insert((int)myVox.getListPos().x, midList);
-		}
-		else if((int)myVox.getListPos().z > posGrid[(int)myVox.getListPos().x][(int)myVox.getListPos().y].Count-1)
-		{
-			innerList = new List<Vox>();
-			innerList.Add(myVox);
-			midList = posGrid[(int)myVox.getListPos().x];
-			midList.Insert((int)myVox.getListPos().x, innerList);
-			posGrid.Insert((int)myVox.getListPos().x, midList);
-		}
 		newObject.SetActive (true);
 			
 		return newObject;
