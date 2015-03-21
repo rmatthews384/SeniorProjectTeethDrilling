@@ -48,6 +48,7 @@ public class Vox
 	GameObject vox;
 	int level;
 	int decay;
+	int count;
 	
 	public Vox(Vector3 position, Vector3 listPos, int level, GameObject vox)
 	{
@@ -65,6 +66,11 @@ public class Vox
 	public void setDecay(int decay)
 	{
 		this.decay = decay;
+	}
+
+	public void setCount(int count)
+	{
+		this.count = count;
 	}
 
 	public Vector3 getPosition()
@@ -85,6 +91,11 @@ public class Vox
 	public int getDecay()
 	{
 		return this.decay;
+	}
+
+	public int getCount()
+	{
+		return this.count;
 	}
 	
 	public GameObject getVox()
@@ -179,9 +190,11 @@ public sealed class PoolingSystem : MonoBehaviour {
 			int y = Random.Range(3,67);
 			Vox myVox = posGrid[0][x][y];
 			myVox.setDecay(4);
+			myVox.setCount(2);
 			GameObject vox = myVox.getVox();
 			cc = vox.GetComponent<CubeController>();
 			cc.setMaterial(4);
+			cc.setCount(2);
 			heavyDecay.Add(myVox);
 		}
 		Instantiate (Resources.Load ("decay"));
@@ -191,6 +204,27 @@ public sealed class PoolingSystem : MonoBehaviour {
 	
 	public static void DestroyAPS(GameObject myObject)
 	{
+		/*cc = myObject.GetComponent<CubeController>;
+		if(cc.getDecay == 4)
+		{
+
+		}
+		else if(cc.getDecay == 3)
+		{
+
+		}
+		else if(cc.getDecay == 2)
+		{
+			
+		}
+		else if(cc.getDecay == 1)
+		{
+			
+		}
+		else if(cc.getDecay == 0)
+		{
+			
+		}*/
 		destroyed.Add (myObject.transform.position);
 		myObject.SetActive(false);
 	}
@@ -214,6 +248,7 @@ public sealed class PoolingSystem : MonoBehaviour {
 		zeroposition.z = 0;
 		bool found = false;
 		int decay = 1;
+		int dcount = 0;
 		if(itemPosition.x > .95f || itemPosition.x < -.95f || itemPosition.y > .95f || itemPosition.y < -.95f)
 		{
 			return newObject;
@@ -243,7 +278,7 @@ public sealed class PoolingSystem : MonoBehaviour {
 					{
 						Debug.Log("found");
 						decay = posGrid[0][i][j].getDecay();
-						Debug.Log(decay);
+						dcount = posGrid[0][i][j].getCount();
 						found = true;
 						breakif = true;
 						break;
@@ -252,7 +287,7 @@ public sealed class PoolingSystem : MonoBehaviour {
 					{
 						Debug.Log("not found");
 						decay = posGrid[0][i][j].getDecay();
-						Debug.Log (decay);
+						dcount = posGrid[0][i][j].getCount();
 						found = false;
 						breakif = true;
 						break;
@@ -292,25 +327,147 @@ public sealed class PoolingSystem : MonoBehaviour {
 
 		if(found)
 		{
+			Debug.Log("decay:" + decay + " dcount: "+ dcount);
 			if(decay > 0)
 			{
-				cc.setMaterial(decay-1);
-				myVox.setDecay (decay-1);
+				if(decay == 4 && dcount == 1)
+				{
+					cc.setCount(3);
+					myVox.setCount(3);
+				}
+				else if(decay == 3 && dcount == 1)
+				{
+					cc.setCount(3);
+					myVox.setCount(3);
+				}
+				else if(decay == 2 && dcount == 1)
+				{
+					cc.setCount(2);
+					myVox.setCount(2);
+				}
+				else if(decay == 1 && dcount == 1)
+				{
+					cc.setCount(0);
+					myVox.setCount(0);
+				}
+				else if(decay == 0)
+				{
+					cc.setCount(0);
+					myVox.setCount(0);
+				}
+				else
+				{
+					cc.setCount(dcount-1);
+					myVox.setCount(dcount-1);
+				}
+				if(dcount == 1)
+				{
+					cc.setMaterial(decay-1);
+					myVox.setDecay (decay-1);
+				}
+				else if(dcount > 1)
+				{
+					cc.setMaterial(decay);
+					myVox.setDecay(decay);
+				}
+				else
+				{
+					cc.setMaterial(0);
+					myVox.setDecay(0);
+				}
 			}
 			else
 			{
 				cc.setMaterial(0);
+				cc.setCount(0);
+				myVox.setCount(0);
 				myVox.setDecay (0);
 			}
 		}
 		else
 		{
 			int multiple = (int)(itemPosition.z/.019f);
-			decay = decay - multiple;
-			if(decay > 0)
+			if(decay == 4)
 			{
-				cc.setMaterial(decay);
-				myVox.setDecay (decay);
+				if(multiple <= 1)
+				{
+				cc.setMaterial(4);
+				myVox.setDecay (4);
+				}
+				else if(multiple > 1 && multiple <= 4)
+				{
+					cc.setMaterial(3);
+					myVox.setDecay (3);
+				}
+				else if(multiple > 4 && multiple <= 7)
+				{
+					cc.setMaterial(2);
+					myVox.setDecay (2);
+				}
+				else if(multiple > 7 && multiple <= 9)
+				{
+					cc.setMaterial(1);
+					myVox.setDecay (1);
+				}
+				else if(multiple >= 10)
+				{
+					cc.setMaterial(0);
+					myVox.setDecay (0);
+				}
+			}
+			else if(decay == 3)
+			{
+				if(multiple <= 1)
+				{
+					cc.setMaterial(3);
+					myVox.setDecay (3);
+				}
+				else if(multiple > 1 && multiple <= 4)
+				{
+					cc.setMaterial(2);
+					myVox.setDecay (2);
+				}
+				else if(multiple > 4 && multiple <= 7)
+				{
+					cc.setMaterial(1);
+					myVox.setDecay (1);
+				}
+				else
+				{
+					cc.setMaterial(0);
+					myVox.setDecay (0);
+				}
+			}
+			else if(decay == 2)
+			{
+				if(multiple <= 1)
+				{
+					cc.setMaterial(2);
+					myVox.setDecay (2);
+				}
+				else if(multiple > 1 && multiple <= 4)
+				{
+					cc.setMaterial(1);
+					myVox.setDecay (1);
+				}
+				else 
+				{
+					cc.setMaterial(0);
+					myVox.setDecay (0);
+				}
+			}
+			else if(decay == 1)
+			{
+				if(multiple <= 1)
+				{
+					cc.setMaterial(1);
+					myVox.setDecay (1);
+				}
+				else 
+				{
+					cc.setMaterial(0);
+					myVox.setDecay (0);
+				}
 			}
 			else
 			{

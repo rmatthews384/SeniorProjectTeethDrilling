@@ -41,10 +41,32 @@ public class DecayPropagation : MonoBehaviour {
 					{
 						cc.setMaterial(myvox.getDecay()-1);
 						ps.posGrid[x][newY][newZ].setDecay(myvox.getDecay()-1);
+						if(myvox.getDecay() == 4)
+						{
+							ps.posGrid[x][newY][newZ].setCount(3);
+						}
+						else if(myvox.getDecay() == 3)
+						{
+							ps.posGrid[x][newY][newZ].setCount(3);
+						}
+						else if(myvox.getDecay() == 2)
+						{
+							ps.posGrid[x][newY][newZ].setCount(2);
+						}
+						else if(myvox.getDecay() == 1)
+						{
+							ps.posGrid[x][newY][newZ].setCount(0);
+						}
+						else
+						{
+							ps.posGrid[x][newY][newZ].setCount(0);
+						}
 					}
 					else
 					{
 						cc.setMaterial(0);
+						ps.posGrid[x][newY][newZ].setDecay(0);
+						ps.posGrid[x][newY][newZ].setCount(0);
 					}
 					finished.Add(ps.posGrid[x][newY][newZ]);
 				}
@@ -58,10 +80,32 @@ public class DecayPropagation : MonoBehaviour {
 					{
 						cc.setMaterial(myvox.getDecay()-1);
 						ps.posGrid[x][newY][newZ].setDecay(myvox.getDecay()-1);
+						if(myvox.getDecay() == 4)
+						{
+							ps.posGrid[x][newY][newZ].setCount(3);
+						}
+						else if(myvox.getDecay() == 3)
+						{
+							ps.posGrid[x][newY][newZ].setCount(3);
+						}
+						else if(myvox.getDecay() == 2)
+						{
+							ps.posGrid[x][newY][newZ].setCount(2);
+						}
+						else if(myvox.getDecay() == 1)
+						{
+							ps.posGrid[x][newY][newZ].setCount(0);
+						}
+						else
+						{
+							ps.posGrid[x][newY][newZ].setCount(0);
+						}
 					}
 					else
 					{
 						cc.setMaterial(0);
+						ps.posGrid[x][newY][newZ].setDecay(0);
+						ps.posGrid[x][newY][newZ].setCount(0);
 					}
 					finished.Add(ps.posGrid[x][newY][newZ]);
 				}
@@ -75,10 +119,32 @@ public class DecayPropagation : MonoBehaviour {
 					{
 						cc.setMaterial(myvox.getDecay()-1);
 						ps.posGrid[x][newY][newZ].setDecay(myvox.getDecay()-1);
+						if(myvox.getDecay() == 4)
+						{
+							ps.posGrid[x][newY][newZ].setCount(3);
+						}
+						else if(myvox.getDecay() == 3)
+						{
+							ps.posGrid[x][newY][newZ].setCount(3);
+						}
+						else if(myvox.getDecay() == 2)
+						{
+							ps.posGrid[x][newY][newZ].setCount(2);
+						}
+						else if(myvox.getDecay() == 1)
+						{
+							ps.posGrid[x][newY][newZ].setCount(0);
+						}
+						else
+						{
+							ps.posGrid[x][newY][newZ].setCount(0);
+						}
 					}
 					else
 					{
 						cc.setMaterial(0);
+						ps.posGrid[x][newY][newZ].setDecay(0);
+						ps.posGrid[x][newY][newZ].setCount(0);
 					}
 					finished.Add(ps.posGrid[x][newY][newZ]);
 				}
@@ -92,10 +158,32 @@ public class DecayPropagation : MonoBehaviour {
 					{
 						cc.setMaterial(myvox.getDecay()-1);
 						ps.posGrid[x][newY][newZ].setDecay(myvox.getDecay()-1);
+						if(myvox.getDecay() == 4)
+						{
+							ps.posGrid[x][newY][newZ].setCount(3);
+						}
+						else if(myvox.getDecay() == 3)
+						{
+							ps.posGrid[x][newY][newZ].setCount(3);
+						}
+						else if(myvox.getDecay() == 2)
+						{
+							ps.posGrid[x][newY][newZ].setCount(2);
+						}
+						else if(myvox.getDecay() == 1)
+						{
+							ps.posGrid[x][newY][newZ].setCount(0);
+						}
+						else
+						{
+							ps.posGrid[x][newY][newZ].setCount(0);
+						}
 					}
 					else
 					{
 						cc.setMaterial(0);
+						ps.posGrid[x][newY][newZ].setDecay(0);
+						ps.posGrid[x][newY][newZ].setCount(0);
 					}
 					finished.Add(ps.posGrid[x][newY][newZ]);
 				}
@@ -109,10 +197,32 @@ public class DecayPropagation : MonoBehaviour {
 					{
 						cc.setMaterial(myvox.getDecay()-1);
 						ps.posGrid[x][newY][newZ].setDecay(myvox.getDecay()-1);
+						if(myvox.getDecay() == 4)
+						{
+							ps.posGrid[x][newY][newZ].setCount(3);
+						}
+						else if(myvox.getDecay() == 3)
+						{
+							ps.posGrid[x][newY][newZ].setCount(3);
+						}
+						else if(myvox.getDecay() == 2)
+						{
+							ps.posGrid[x][newY][newZ].setCount(2);
+						}
+						else if(myvox.getDecay() == 1)
+						{
+							ps.posGrid[x][newY][newZ].setCount(0);
+						}
+						else
+						{
+							ps.posGrid[x][newY][newZ].setCount(0);
+						}
 					}
 					else
 					{
 						cc.setMaterial(0);
+						ps.posGrid[x][newY][newZ].setDecay(0);
+						ps.posGrid[x][newY][newZ].setCount(0);
 					}
 					finished.Add(ps.posGrid[x][newY][newZ]);
 				}
@@ -125,10 +235,32 @@ public class DecayPropagation : MonoBehaviour {
 					{
 						cc.setMaterial(myvox.getDecay()-1);
 						ps.posGrid[x][newY][newZ].setDecay(myvox.getDecay()-1);
+						if(myvox.getDecay() == 4)
+						{
+							ps.posGrid[x][newY][newZ].setCount(3);
+						}
+						else if(myvox.getDecay() == 3)
+						{
+							ps.posGrid[x][newY][newZ].setCount(3);
+						}
+						else if(myvox.getDecay() == 2)
+						{
+							ps.posGrid[x][newY][newZ].setCount(2);
+						}
+						else if(myvox.getDecay() == 1)
+						{
+							ps.posGrid[x][newY][newZ].setCount(0);
+						}
+						else
+						{
+							ps.posGrid[x][newY][newZ].setCount(0);
+						}
 					}
 					else
 					{
 						cc.setMaterial(0);
+						ps.posGrid[x][newY][newZ].setDecay(0);
+						ps.posGrid[x][newY][newZ].setCount(0);
 					}
 					finished.Add(ps.posGrid[x][newY][newZ]);
 				}
@@ -143,10 +275,32 @@ public class DecayPropagation : MonoBehaviour {
 					{
 						cc.setMaterial(myvox.getDecay()-1);
 						ps.posGrid[x][newY][newZ].setDecay(myvox.getDecay()-1);
+						if(myvox.getDecay() == 4)
+						{
+							ps.posGrid[x][newY][newZ].setCount(3);
+						}
+						else if(myvox.getDecay() == 3)
+						{
+							ps.posGrid[x][newY][newZ].setCount(3);
+						}
+						else if(myvox.getDecay() == 2)
+						{
+							ps.posGrid[x][newY][newZ].setCount(2);
+						}
+						else if(myvox.getDecay() == 1)
+						{
+							ps.posGrid[x][newY][newZ].setCount(0);
+						}
+						else
+						{
+							ps.posGrid[x][newY][newZ].setCount(0);
+						}
 					}
 					else
 					{
 						cc.setMaterial(0);
+						ps.posGrid[x][newY][newZ].setDecay(0);
+						ps.posGrid[x][newY][newZ].setCount(0);
 					}
 					finished.Add(ps.posGrid[x][newY][newZ]);
 				}
@@ -159,10 +313,32 @@ public class DecayPropagation : MonoBehaviour {
 					{
 						cc.setMaterial(myvox.getDecay()-1);
 						ps.posGrid[x][newY][newZ].setDecay(myvox.getDecay()-1);
+						if(myvox.getDecay() == 4)
+						{
+							ps.posGrid[x][newY][newZ].setCount(3);
+						}
+						else if(myvox.getDecay() == 3)
+						{
+							ps.posGrid[x][newY][newZ].setCount(3);
+						}
+						else if(myvox.getDecay() == 2)
+						{
+							ps.posGrid[x][newY][newZ].setCount(2);
+						}
+						else if(myvox.getDecay() == 1)
+						{
+							ps.posGrid[x][newY][newZ].setCount(0);
+						}
+						else
+						{
+							ps.posGrid[x][newY][newZ].setCount(0);
+						}
 					}
 					else
 					{
 						cc.setMaterial(0);
+						ps.posGrid[x][newY][newZ].setDecay(0);
+						ps.posGrid[x][newY][newZ].setCount(0);
 					}
 					finished.Add(ps.posGrid[x][newY][newZ]);
 				}

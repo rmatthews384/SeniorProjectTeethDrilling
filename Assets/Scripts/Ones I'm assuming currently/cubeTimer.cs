@@ -12,6 +12,7 @@ public class cubeTimer : MonoBehaviour {
 	// Use this for initialization
 	void Start () 
 	{
+		Input.simulateMouseWithTouches = true;
 		global = (GameObject.FindGameObjectWithTag ("MainCamera")).GetComponent<Global>();
 		cc = gameObject.GetComponent<CubeController>();
 		pS = PoolingSystem.Instance;
@@ -47,7 +48,7 @@ public class cubeTimer : MonoBehaviour {
 		{
 			timer += Time.deltaTime;
 		}
-		if(timer >= 2)
+		if(timer >= 1)
 		{
 			timer = 0;
 			Vector3 myposition = this.gameObject.transform.position;

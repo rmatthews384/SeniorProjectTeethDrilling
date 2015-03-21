@@ -6,6 +6,7 @@ public class CubeController : MonoBehaviour {
 	public Material[] materials;
 	int decayvalue;
 	int id;
+	int count;
 
 	void Awake ()
 	{
@@ -14,6 +15,16 @@ public class CubeController : MonoBehaviour {
 	// Use this for initialization
 	void Start () {
 
+	}
+
+	public int getCount()
+	{
+		return this.count;
+	}
+
+	public void setCount(int count)
+	{
+		this.count = count;
 	}
 
 	public int getDecay()
