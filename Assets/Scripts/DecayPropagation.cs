@@ -25,7 +25,7 @@ public class DecayPropagation : MonoBehaviour {
 			Vox myvox;
 			next.Enqueue(value);
 			finished.Add(value);
-			while(i < 81 && next.Count > 0)
+			while(i < 23 && next.Count > 0)
 			{
 				myvox = next.Dequeue();
 				x = 0;

@@ -5,14 +5,12 @@ public class GameGUI : MonoBehaviour {
 
 	float timer;
 	int actualcount;
-	int score;
 	CubeController cc;
 
 	// Use this for initialization
 	void Start () {
 		timer = 0;
-		score = 0;
-		actualcount = 1800;
+		actualcount = 600;
 	
 	}
 
@@ -103,7 +101,7 @@ public class GameGUI : MonoBehaviour {
 		if(actualcount > 0)
 		{
 			timer += Time.deltaTime;
-			if(timer > .5f)
+			if(timer >= 1f)
 			{
 				timer = 0;
 				actualcount -= 1;

@@ -172,6 +172,7 @@ public sealed class PoolingSystem : MonoBehaviour {
 					innerList.Add(myVox);
 					cc = newItem.GetComponent<CubeController>();
 					cc.setID(id);
+					cc.setLevel(0);
 					id++;
 					newItem.SetActive(true);
 					pooledItems[i].Add(newItem);
@@ -184,11 +185,11 @@ public sealed class PoolingSystem : MonoBehaviour {
 			}
 		}
 		posGrid.Add (midList);
-		Debug.Log (posGrid.Count);
-		for(int i = 0; i < 100; i++)
+		for(int i = 0; i < 30; i++)
 		{
 			int x = Random.Range(3,67);
 			int y = Random.Range(3,67);
+			Debug.Log("x: " + x + " y: " + y);
 			Vox myVox = posGrid[0][x][y];
 			myVox.setDecay(4);
 			myVox.setCount(2);
@@ -205,27 +206,6 @@ public sealed class PoolingSystem : MonoBehaviour {
 	
 	public static void DestroyAPS(GameObject myObject)
 	{
-		/*cc = myObject.GetComponent<CubeController>;
-		if(cc.getDecay == 4)
-		{
-
-		}
-		else if(cc.getDecay == 3)
-		{
-
-		}
-		else if(cc.getDecay == 2)
-		{
-			
-		}
-		else if(cc.getDecay == 1)
-		{
-			
-		}
-		else if(cc.getDecay == 0)
-		{
-			
-		}*/
 		destroyed.Add (myObject.transform.position);
 		myObject.SetActive(false);
 	}
@@ -250,7 +230,7 @@ public sealed class PoolingSystem : MonoBehaviour {
 		bool found = false;
 		int decay = 1;
 		int dcount = 0;
-		if(itemPosition.x > .95f || itemPosition.x < -.95f || itemPosition.y > .95f || itemPosition.y < -.95f)
+		if(itemPosition.x >= .95f || itemPosition.x < -.38f || itemPosition.y > .95f || itemPosition.y < -.361f)
 		{
 			return newObject;
 		}
@@ -277,7 +257,6 @@ public sealed class PoolingSystem : MonoBehaviour {
 					}
 					if(!breakif && posGrid[posGrid.Count-count][i][j].getPosition() == oldPosition)
 					{
-						Debug.Log("found");
 						decay = posGrid[0][i][j].getDecay();
 						dcount = posGrid[0][i][j].getCount();
 						found = true;
@@ -286,7 +265,6 @@ public sealed class PoolingSystem : MonoBehaviour {
 					}
 					else if(!breakif && posGrid[posGrid.Count-count][i][j].getPosition() == zeroposition)
 					{
-						Debug.Log("not found");
 						decay = posGrid[0][i][j].getDecay();
 						dcount = posGrid[0][i][j].getCount();
 						found = false;
@@ -328,7 +306,6 @@ public sealed class PoolingSystem : MonoBehaviour {
 
 		if(found)
 		{
-			Debug.Log("decay:" + decay + " dcount: "+ dcount);
 			if(decay > 0)
 			{
 				if(decay == 4 && dcount == 1)
@@ -501,6 +478,7 @@ public sealed class PoolingSystem : MonoBehaviour {
 			midList.Insert((int)myVox.getListPos().x, innerList);
 			posGrid.Insert((int)myVox.getListPos().x, midList);
 		}
+		cc.setLevel ((int)(itemPosition.z / .019f));
 		newObject.SetActive (true);
 			
 		return newObject;
