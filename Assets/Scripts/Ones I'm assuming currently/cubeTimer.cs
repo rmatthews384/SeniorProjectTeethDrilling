@@ -48,8 +48,6 @@ public class cubeTimer : MonoBehaviour {
 		}
 		if(timer >= 2)
 		{
-			send
-
 			if(cc.getLevel() < 20)
 			{
 				timer = 0;
