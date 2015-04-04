@@ -7,6 +7,7 @@ public class CubeController : MonoBehaviour {
 	int decayvalue;
 	int id;
 	int count;
+	int level;
 
 	void Awake ()
 	{
@@ -15,6 +16,16 @@ public class CubeController : MonoBehaviour {
 	// Use this for initialization
 	void Start () {
 
+	}
+
+	public int getLevel()
+	{
+		return this.level;
+	}
+
+	public void setLevel(int level)
+	{
+		this.level = level;
 	}
 
 	public int getCount()

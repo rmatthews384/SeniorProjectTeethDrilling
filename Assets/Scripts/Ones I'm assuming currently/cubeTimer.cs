@@ -20,12 +20,6 @@ public class cubeTimer : MonoBehaviour {
 		hover = false;
 	}
 
-	void OnMouseDown()
-	{
-		global.setMouseDown (true);
-
-	}
-
 	void OnMouseEnter()
 	{
 		hover = true;
@@ -39,6 +33,10 @@ public class cubeTimer : MonoBehaviour {
 	// Update is called once per frame
 	void Update () 
 	{
+		if (Input.GetMouseButtonDown(0))
+		{
+			global.setMouseDown(true);
+		}
 		if (Input.GetMouseButtonUp (0))
 		{
 			global.setMouseDown(false);
@@ -48,25 +46,30 @@ public class cubeTimer : MonoBehaviour {
 		{
 			timer += Time.deltaTime;
 		}
-		if(timer >= 1)
+		if(timer >= 2)
 		{
-			timer = 0;
-			Vector3 myposition = this.gameObject.transform.position;
-			Vector3 myoldposition;
-			myposition.z += .019f;
-			pS.InstantiateAPS("cube", myposition, Quaternion.identity);
-			myoldposition = myposition;
-			myposition.x += .019f;
-			pS.InstantiateAPS("cube", myposition, Quaternion.identity);
-			myposition = myoldposition;
-			myposition.x -= .019f;
-			pS.InstantiateAPS("cube", myposition, Quaternion.identity);
-			myposition = myoldposition;
-			myposition.y += .019f;
-			pS.InstantiateAPS("cube", myposition, Quaternion.identity);
-			myposition = myoldposition;
-			myposition.y -= .019f;
-			pS.InstantiateAPS("cube", myposition, Quaternion.identity);
+			send
+
+			if(cc.getLevel() < 20)
+			{
+				timer = 0;
+				Vector3 myposition = this.gameObject.transform.position;
+				Vector3 myoldposition;
+				myposition.z += .019f;
+				pS.InstantiateAPS("cube", myposition, Quaternion.identity);
+				myoldposition = myposition;
+				myposition.x += .019f;
+				pS.InstantiateAPS("cube", myposition, Quaternion.identity);
+				myposition = myoldposition;
+				myposition.x -= .019f;
+				pS.InstantiateAPS("cube", myposition, Quaternion.identity);
+				myposition = myoldposition;
+				myposition.y += .019f;
+				pS.InstantiateAPS("cube", myposition, Quaternion.identity);
+				myposition = myoldposition;
+				myposition.y -= .019f;
+				pS.InstantiateAPS("cube", myposition, Quaternion.identity);
+			}
 			
 			PoolingSystemExtensions.DestroyAPS(this.gameObject);
 
