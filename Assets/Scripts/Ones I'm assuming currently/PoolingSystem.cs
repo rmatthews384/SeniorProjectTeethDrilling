@@ -115,6 +115,7 @@ public sealed class PoolingSystem : MonoBehaviour {
 	static List<List<Vox>> midList = new List<List<Vox>>();
 	static List<Vox> innerList = new List<Vox>();
 	static ArrayList destroyed = new ArrayList();
+	static float cubeDim = 0.019f;
 	
 	[System.Serializable]
 	public class PoolingItems
@@ -164,7 +165,7 @@ public sealed class PoolingSystem : MonoBehaviour {
 				startvector.x = .95f;
 				for(int k = 0; k < 70; k++)
 				{
-					startvector.x -= .019f;
+					startvector.x -= cubeDim;
 					newItem = (GameObject) Instantiate(poolingItems[i].prefab, startvector, Quaternion.identity);
 					Vector3 listPos = new Vector3(0,j,k);
 					Vox myVox = new Vox(startvector, listPos, 0, newItem);
@@ -179,7 +180,7 @@ public sealed class PoolingSystem : MonoBehaviour {
 				}
 				midList.Add(innerList);
 				innerList = new List<Vox>();
-				startvector.y -= .019f;
+				startvector.y -= cubeDim;
 			}
 		}
 		posGrid.Add (midList);
@@ -244,7 +245,7 @@ public sealed class PoolingSystem : MonoBehaviour {
 		GameObject newObject = GetPooledItem(itemType);
 		Vector3 zeroposition = itemPosition;
 		Vector3 oldPosition = itemPosition;
-		oldPosition.z -= .019f;
+		oldPosition.z -= cubeDim;
 		zeroposition.z = 0;
 		bool found = false;
 		int decay = 1;
@@ -305,25 +306,25 @@ public sealed class PoolingSystem : MonoBehaviour {
 		float vectorz = 0;
 		if(itemPosition.x >= 0)
 		{
-			vectory = itemPosition.x/.019f;
+			vectory = itemPosition.x/cubeDim;
 			vectory = 50f - vectory;
 		}
 		else
 		{
-			vectory = (itemPosition.x*(-1))/.019f + 49f;
+			vectory = (itemPosition.x*(-1))/cubeDim + 49f;
 		}
 		if(itemPosition.y > 0)
 		{
-			vectorz = itemPosition.y/.019f;
+			vectorz = itemPosition.y/cubeDim;
 			vectorz = 50f - vectorz;
 		}
 		else
 		{
-			vectorz = (itemPosition.y*(-1))/.019f + 49f;
+			vectorz = (itemPosition.y*(-1))/cubeDim + 49f;
 		}
 		
-		Vector3 listPos = new Vector3 ((int)(itemPosition.z / .019f), vectory, vectorz);
-		Vox myVox = new Vox(itemPosition, listPos, (int)(itemPosition.z/.019f), newObject);
+		Vector3 listPos = new Vector3 ((int)(itemPosition.z / cubeDim), vectory, vectorz);
+		Vox myVox = new Vox(itemPosition, listPos, (int)(itemPosition.z/cubeDim), newObject);
 
 		if(found)
 		{
@@ -386,7 +387,7 @@ public sealed class PoolingSystem : MonoBehaviour {
 		}
 		else
 		{
-			int multiple = (int)(itemPosition.z/.019f);
+			int multiple = (int)(itemPosition.z/cubeDim);
 			if(decay == 4)
 			{
 				if(multiple <= 1)

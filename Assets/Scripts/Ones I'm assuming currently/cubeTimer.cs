@@ -8,6 +8,7 @@ public class cubeTimer : MonoBehaviour {
 	PoolingSystem pS;
 	CubeController cc;
 	Global global;
+	static float cubeDim = 0.019f;
 
 	// Use this for initialization
 	void Start () 
@@ -48,24 +49,24 @@ public class cubeTimer : MonoBehaviour {
 		{
 			timer += Time.deltaTime;
 		}
-		if(timer >= 1)
+		if(timer >= .1f)
 		{
 			timer = 0;
 			Vector3 myposition = this.gameObject.transform.position;
 			Vector3 myoldposition;
-			myposition.z += .019f;
+			myposition.z += cubeDim;
 			pS.InstantiateAPS("cube", myposition, Quaternion.identity);
 			myoldposition = myposition;
-			myposition.x += .019f;
+			myposition.x += cubeDim;
 			pS.InstantiateAPS("cube", myposition, Quaternion.identity);
 			myposition = myoldposition;
-			myposition.x -= .019f;
+			myposition.x -= cubeDim;
 			pS.InstantiateAPS("cube", myposition, Quaternion.identity);
 			myposition = myoldposition;
-			myposition.y += .019f;
+			myposition.y += cubeDim;
 			pS.InstantiateAPS("cube", myposition, Quaternion.identity);
 			myposition = myoldposition;
-			myposition.y -= .019f;
+			myposition.y -= cubeDim;
 			pS.InstantiateAPS("cube", myposition, Quaternion.identity);
 			
 			PoolingSystemExtensions.DestroyAPS(this.gameObject);
