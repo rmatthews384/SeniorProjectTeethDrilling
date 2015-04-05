@@ -46,7 +46,7 @@ public class GameGUI : MonoBehaviour {
 		GUI.Label (new Rect (Screen.width / 1.5f, Screen.height / 40, Screen.width / 10, Screen.height / 10), time, mystyle);
 		if(GUI.Button (new Rect (Screen.width / 1.5f, Screen.height / 1.3f, Screen.width / 10, Screen.height / 15), "Zoom in"))
 		{
-			if(Camera.main.fieldOfView >= 5)
+			if(Camera.main.fieldOfView >= 50)
 			{
 				Camera.main.fieldOfView -= 1;
 				mystyle.fontSize = 10;
@@ -54,8 +54,7 @@ public class GameGUI : MonoBehaviour {
 		}
 		if(GUI.Button (new Rect (Screen.width / 1.5f, Screen.height / 1.175f, Screen.width / 10, Screen.height / 15), "Zoom out"))
 		{
-			if(Camera.main.fieldOfView < 16)
-			{
+			if(Camera.main.fieldOfView < 61){
 				Camera.main.fieldOfView += 1;
 			}
 		}
