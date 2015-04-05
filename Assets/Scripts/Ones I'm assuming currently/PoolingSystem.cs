@@ -163,8 +163,9 @@ public sealed class PoolingSystem : MonoBehaviour {
 			for(int j=0; j<70; j++)
 			{
 				startvector.x = .95f;
-					if(j == 69 || j== 0){
-						startvector.x -= cubeDim*6;
+
+					if(j == 69 || j== 0){				// this checks for the first and last rows
+						startvector.x -= cubeDim*6;		// offset by 6 cubes
 						for(int k = 6; k < 64; k++)	{
 							startvector.x -= cubeDim;
 							newItem = (GameObject) Instantiate(poolingItems[i].prefab, startvector, Quaternion.identity);
@@ -177,8 +178,27 @@ public sealed class PoolingSystem : MonoBehaviour {
 							newItem.SetActive(true);
 							pooledItems[i].Add(newItem);
 							newItem.transform.parent = transform;
+
+						if(j == 69){
+							startvector.z = -cubeDim;
+							for(int q = 1; q < 25; q++){
+								//startvector.x -= cubeDim;
+								startvector.z += cubeDim;
+								newItem = (GameObject) Instantiate(poolingItems[i].prefab, startvector, Quaternion.identity);
+								Vector3 listPosZ = new Vector3(q,j,k);
+								Vox myVoxZ = new Vox(startvector, listPosZ, -q, newItem);
+								innerList.Add(myVoxZ);
+								cc = newItem.GetComponent<CubeController>();
+								cc.setID(id);
+								id++;
+								newItem.SetActive(true);
+								pooledItems[i].Add(newItem);
+								newItem.transform.parent = transform;
+							}
 						}
-					}	
+						}
+					}
+
 					else if (j == 68 || j == 1){
 						startvector.x -= cubeDim *5;
 						for(int k = 5; k < 65; k++)	{
@@ -193,8 +213,26 @@ public sealed class PoolingSystem : MonoBehaviour {
 							newItem.SetActive(true);
 							pooledItems[i].Add(newItem);
 							newItem.transform.parent = transform;
+							if(j == 68){
+								startvector.z = -cubeDim;
+								for(int q = 1; q < 25; q++){
+									//startvector.x -= cubeDim;
+									startvector.z += cubeDim;
+									newItem = (GameObject) Instantiate(poolingItems[i].prefab, startvector, Quaternion.identity);
+									Vector3 listPosZ = new Vector3(q,j,k);
+									Vox myVoxZ = new Vox(startvector, listPosZ, -q, newItem);
+									innerList.Add(myVoxZ);
+									cc = newItem.GetComponent<CubeController>();
+									cc.setID(id);
+									id++;
+									newItem.SetActive(true);
+									pooledItems[i].Add(newItem);
+									newItem.transform.parent = transform;
+								}
+							}
 						}
 					}
+
 					else if( j == 67 || j ==2 ){
 						startvector.x -= cubeDim*4;
 						for(int k = 4; k < 66; k++)	{
@@ -209,8 +247,26 @@ public sealed class PoolingSystem : MonoBehaviour {
 							newItem.SetActive(true);
 							pooledItems[i].Add(newItem);
 							newItem.transform.parent = transform;
+							if(j == 67){
+								startvector.z = -cubeDim;
+								for(int q = 1; q < 25; q++){
+									//startvector.x -= cubeDim;
+									startvector.z += cubeDim;
+									newItem = (GameObject) Instantiate(poolingItems[i].prefab, startvector, Quaternion.identity);
+									Vector3 listPosZ = new Vector3(q,j,k);
+									Vox myVoxZ = new Vox(startvector, listPosZ, -q, newItem);
+									innerList.Add(myVoxZ);
+									cc = newItem.GetComponent<CubeController>();
+									cc.setID(id);
+									id++;
+									newItem.SetActive(true);
+									pooledItems[i].Add(newItem);
+									newItem.transform.parent = transform;
+								}
+							}
 						}
 					}
+
 					else if( j == 66 || j ==3){
 						startvector.x -= cubeDim*3;
 							for(int k = 3; k < 67; k++)	{
@@ -225,8 +281,26 @@ public sealed class PoolingSystem : MonoBehaviour {
 							newItem.SetActive(true);
 							pooledItems[i].Add(newItem);
 							newItem.transform.parent = transform;
+							if(j == 66){
+								startvector.z = -cubeDim;
+								for(int q = 1; q < 25; q++){
+									//startvector.x -= cubeDim;
+									startvector.z += cubeDim;
+									newItem = (GameObject) Instantiate(poolingItems[i].prefab, startvector, Quaternion.identity);
+									Vector3 listPosZ = new Vector3(q,j,k);
+									Vox myVoxZ = new Vox(startvector, listPosZ, -q, newItem);
+									innerList.Add(myVoxZ);
+									cc = newItem.GetComponent<CubeController>();
+									cc.setID(id);
+									id++;
+									newItem.SetActive(true);
+									pooledItems[i].Add(newItem);
+									newItem.transform.parent = transform;
+								}
+							}
 						}
 					}
+
 					else if (j == 65 || j == 4){
 						startvector.x -= cubeDim*2;
 							for(int k = 2; k < 68; k++)	{
@@ -241,8 +315,26 @@ public sealed class PoolingSystem : MonoBehaviour {
 							newItem.SetActive(true);
 							pooledItems[i].Add(newItem);
 							newItem.transform.parent = transform;
+							if(j == 65){
+								startvector.z = -cubeDim;
+								for(int q = 1; q < 25; q++){
+									//startvector.x -= cubeDim;
+									startvector.z += cubeDim;
+									newItem = (GameObject) Instantiate(poolingItems[i].prefab, startvector, Quaternion.identity);
+									Vector3 listPosZ = new Vector3(q,j,k);
+									Vox myVoxZ = new Vox(startvector, listPosZ, -q, newItem);
+									innerList.Add(myVoxZ);
+									cc = newItem.GetComponent<CubeController>();
+									cc.setID(id);
+									id++;
+									newItem.SetActive(true);
+									pooledItems[i].Add(newItem);
+									newItem.transform.parent = transform;
+								}
+							}
 						}
 					}
+
 					else if ( j == 64 || j == 5){
 						startvector.x -= cubeDim;
 							for(int k = 1; k < 69; k++)	{
@@ -257,12 +349,28 @@ public sealed class PoolingSystem : MonoBehaviour {
 							newItem.SetActive(true);
 							pooledItems[i].Add(newItem);
 							newItem.transform.parent = transform;
+							if(j == 64){
+								startvector.z = -cubeDim;
+								for(int q = 1; q < 25; q++){
+									//startvector.x -= cubeDim;
+									startvector.z += cubeDim;
+									newItem = (GameObject) Instantiate(poolingItems[i].prefab, startvector, Quaternion.identity);
+									Vector3 listPosZ = new Vector3(q,j,k);
+									Vox myVoxZ = new Vox(startvector, listPosZ, -q, newItem);
+									innerList.Add(myVoxZ);
+									cc = newItem.GetComponent<CubeController>();
+									cc.setID(id);
+									id++;
+									newItem.SetActive(true);
+									pooledItems[i].Add(newItem);
+									newItem.transform.parent = transform;
+								}
+							}
 						}
 					}
-				else{
-					for(int k = 0; k < 70; k++)
-					{
 
+				else{
+					for(int k = 0; k < 70; k++){
 						startvector.x -= cubeDim;
 						newItem = (GameObject) Instantiate(poolingItems[i].prefab, startvector, Quaternion.identity);
 						Vector3 listPos = new Vector3(0,j,k);
@@ -274,6 +382,23 @@ public sealed class PoolingSystem : MonoBehaviour {
 						newItem.SetActive(true);
 						pooledItems[i].Add(newItem);
 						newItem.transform.parent = transform;
+						if(j == 63){
+							startvector.z = -cubeDim;
+							for(int q = 1; q < 25; q++){
+								//startvector.x -= cubeDim;
+								startvector.z += cubeDim;
+								newItem = (GameObject) Instantiate(poolingItems[i].prefab, startvector, Quaternion.identity);
+								Vector3 listPosZ = new Vector3(q,j,k);
+								Vox myVoxZ = new Vox(startvector, listPosZ, -q, newItem);
+								innerList.Add(myVoxZ);
+								cc = newItem.GetComponent<CubeController>();
+								cc.setID(id);
+								id++;
+								newItem.SetActive(true);
+								pooledItems[i].Add(newItem);
+								newItem.transform.parent = transform;
+							}
+						}
 					}
 				}
 				midList.Add(innerList);
@@ -417,6 +542,7 @@ public sealed class PoolingSystem : MonoBehaviour {
 		}
 		
 		Vector3 listPos = new Vector3 ((int)(itemPosition.z / cubeDim), vectory, vectorz);
+		print((int)(itemPosition.z/cubeDim));
 		Vox myVox = new Vox(itemPosition, listPos, (int)(itemPosition.z/cubeDim), newObject);
 
 		if(found)

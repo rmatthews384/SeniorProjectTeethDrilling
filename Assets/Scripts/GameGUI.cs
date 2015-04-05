@@ -67,6 +67,7 @@ public class GameGUI : MonoBehaviour {
 			Camera.main.transform.position = myPos;
 			}
 		}
+
 		if(GUI.Button (new Rect (Screen.width / 1.3f, Screen.height / 1.545f, Screen.width/10, Screen.height / 20), "Down"))
 		{
 			Vector3 myPos = Camera.main.transform.position;
