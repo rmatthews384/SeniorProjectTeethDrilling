@@ -153,6 +153,7 @@ public sealed class PoolingSystem : MonoBehaviour {
 		Vector3 startvector;
 		startvector = new Vector3 (.95f, .95f, 0);
 		pooledItems = new List<GameObject>[poolingItems.Length];
+		Vox myVox;
 		for(int i=0; i<poolingItems.Length; i++)
 		{
 			pooledItems[i] = new List<GameObject>();
@@ -170,7 +171,7 @@ public sealed class PoolingSystem : MonoBehaviour {
 							startvector.x -= cubeDim;
 							newItem = (GameObject) Instantiate(poolingItems[i].prefab, startvector, Quaternion.identity);
 							Vector3 listPos = new Vector3(0,j,k);
-							Vox myVox = new Vox(startvector, listPos, 0, newItem);
+							myVox = new Vox(startvector, listPos, 0, newItem);
 							innerList.Add(myVox);
 							cc = newItem.GetComponent<CubeController>();
 							cc.setID(id);
@@ -205,7 +206,7 @@ public sealed class PoolingSystem : MonoBehaviour {
 							startvector.x -= cubeDim;
 							newItem = (GameObject) Instantiate(poolingItems[i].prefab, startvector, Quaternion.identity);
 							Vector3 listPos = new Vector3(0,j,k);
-							Vox myVox = new Vox(startvector, listPos, 0, newItem);
+							myVox = new Vox(startvector, listPos, 0, newItem);
 							innerList.Add(myVox);
 							cc = newItem.GetComponent<CubeController>();
 							cc.setID(id);
@@ -239,7 +240,7 @@ public sealed class PoolingSystem : MonoBehaviour {
 							startvector.x -= cubeDim;
 							newItem = (GameObject) Instantiate(poolingItems[i].prefab, startvector, Quaternion.identity);
 							Vector3 listPos = new Vector3(0,j,k);
-							Vox myVox = new Vox(startvector, listPos, 0, newItem);
+							myVox = new Vox(startvector, listPos, 0, newItem);
 							innerList.Add(myVox);
 							cc = newItem.GetComponent<CubeController>();
 							cc.setID(id);
@@ -273,7 +274,7 @@ public sealed class PoolingSystem : MonoBehaviour {
 							startvector.x -= cubeDim;
 							newItem = (GameObject) Instantiate(poolingItems[i].prefab, startvector, Quaternion.identity);
 							Vector3 listPos = new Vector3(0,j,k);
-							Vox myVox = new Vox(startvector, listPos, 0, newItem);
+							myVox = new Vox(startvector, listPos, 0, newItem);
 							innerList.Add(myVox);
 							cc = newItem.GetComponent<CubeController>();
 							cc.setID(id);
@@ -307,7 +308,7 @@ public sealed class PoolingSystem : MonoBehaviour {
 							startvector.x -= cubeDim;
 							newItem = (GameObject) Instantiate(poolingItems[i].prefab, startvector, Quaternion.identity);
 							Vector3 listPos = new Vector3(0,j,k);
-							Vox myVox = new Vox(startvector, listPos, 0, newItem);
+							myVox = new Vox(startvector, listPos, 0, newItem);
 							innerList.Add(myVox);
 							cc = newItem.GetComponent<CubeController>();
 							cc.setID(id);
@@ -341,7 +342,7 @@ public sealed class PoolingSystem : MonoBehaviour {
 							startvector.x -= cubeDim;
 							newItem = (GameObject) Instantiate(poolingItems[i].prefab, startvector, Quaternion.identity);
 							Vector3 listPos = new Vector3(0,j,k);
-							Vox myVox = new Vox(startvector, listPos, 0, newItem);
+							myVox = new Vox(startvector, listPos, 0, newItem);
 							innerList.Add(myVox);
 							cc = newItem.GetComponent<CubeController>();
 							cc.setID(id);
@@ -374,7 +375,7 @@ public sealed class PoolingSystem : MonoBehaviour {
 						startvector.x -= cubeDim;
 						newItem = (GameObject) Instantiate(poolingItems[i].prefab, startvector, Quaternion.identity);
 						Vector3 listPos = new Vector3(0,j,k);
-						Vox myVox = new Vox(startvector, listPos, 0, newItem);
+						myVox = new Vox(startvector, listPos, 0, newItem);
 						innerList.Add(myVox);
 						cc = newItem.GetComponent<CubeController>();
 						cc.setID(id);
@@ -407,21 +408,178 @@ public sealed class PoolingSystem : MonoBehaviour {
 			}
 		}
 		posGrid.Add (midList);
-		for(int i = 0; i < 30; i++)
+
+		int x = Random.Range(20,50);
+		int y = Random.Range(20,50);
+		myVox = posGrid[0][x][y];
+		myVox.setDecay(4);
+		myVox.setCount(2);
+		GameObject vox = myVox.getVox();
+		cc = vox.GetComponent<CubeController>();
+		cc.setMaterial(4);
+		cc.setCount(2);
+		heavyDecay.Add(myVox);
+		int newX = x;
+		int newY = y;
+		for(int i = 0; i < Random.Range(1,5); i++)
 		{
-			int x = Random.Range(3,67);
-			int y = Random.Range(3,67);
-			Debug.Log("x: " + x + " y: " + y);
-			Vox myVox = posGrid[0][x][y];
+			newX -= 1;
+			myVox = posGrid[0][newX][y];
 			myVox.setDecay(4);
 			myVox.setCount(2);
-			GameObject vox = myVox.getVox();
+			vox = myVox.getVox();
 			cc = vox.GetComponent<CubeController>();
 			cc.setMaterial(4);
 			cc.setCount(2);
 			heavyDecay.Add(myVox);
+			newY = y;
+			for(int j = 0; j < 3; j++)
+			{
+				newY += 1;
+				myVox = posGrid[0][newX][newY];
+				myVox.setDecay(4);
+				myVox.setCount(2);
+				vox = myVox.getVox();
+				cc = vox.GetComponent<CubeController>();
+				cc.setMaterial(4);
+				cc.setCount(2);
+				heavyDecay.Add(myVox);
+			}
+			newY = y;
+			for(int j = 0; j < 3; j++)
+			{
+				newY -= 1;
+				myVox = posGrid[0][newX][newY];
+				myVox.setDecay(4);
+				myVox.setCount(2);
+				vox = myVox.getVox();
+				cc = vox.GetComponent<CubeController>();
+				cc.setMaterial(4);
+				cc.setCount(2);
+				heavyDecay.Add(myVox);
+			}
 		}
-		//Instantiate (Resources.Load ("decay"));
+		newX = x;
+		newY = y;
+		for(int i = 0; i < Random.Range(1,5); i++)
+		{
+			newX += 1;
+			myVox = posGrid[0][newX][y];
+			myVox.setDecay(4);
+			myVox.setCount(2);
+			vox = myVox.getVox();
+			cc = vox.GetComponent<CubeController>();
+			cc.setMaterial(4);
+			cc.setCount(2);
+			heavyDecay.Add(myVox);
+			newY = y;
+			for(int j = 0; j < 3; j++)
+			{
+				newY += 1;
+				myVox = posGrid[0][newX][newY];
+				myVox.setDecay(4);
+				myVox.setCount(2);
+				vox = myVox.getVox();
+				cc = vox.GetComponent<CubeController>();
+				cc.setMaterial(4);
+				cc.setCount(2);
+				heavyDecay.Add(myVox);
+			}
+			newY = y;
+			for(int j = 0; j < 3; j++)
+			{
+				newY -= 1;
+				myVox = posGrid[0][newX][newY];
+				myVox.setDecay(4);
+				myVox.setCount(2);
+				vox = myVox.getVox();
+				cc = vox.GetComponent<CubeController>();
+				cc.setMaterial(4);
+				cc.setCount(2);
+				heavyDecay.Add(myVox);
+			}
+		}
+		newX = x;
+		newY = y;
+		for(int i = 0; i < Random.Range(1,5); i++)
+		{
+			newY -= 1;
+			myVox = posGrid[0][x][newY];
+			myVox.setDecay(4);
+			myVox.setCount(2);
+			vox = myVox.getVox();
+			cc = vox.GetComponent<CubeController>();
+			cc.setMaterial(4);
+			cc.setCount(2);
+			heavyDecay.Add(myVox);
+			newX = x;
+			for(int j = 0; j < 3; j++)
+			{
+				newX += 1;
+				myVox = posGrid[0][newX][newY];
+				myVox.setDecay(4);
+				myVox.setCount(2);
+				vox = myVox.getVox();
+				cc = vox.GetComponent<CubeController>();
+				cc.setMaterial(4);
+				cc.setCount(2);
+				heavyDecay.Add(myVox);
+			}
+			newX = x;
+			for(int j = 0; j < 3; j++)
+			{
+				newX -= 1;
+				myVox = posGrid[0][newX][newY];
+				myVox.setDecay(4);
+				myVox.setCount(2);
+				vox = myVox.getVox();
+				cc = vox.GetComponent<CubeController>();
+				cc.setMaterial(4);
+				cc.setCount(2);
+				heavyDecay.Add(myVox);
+			}
+		}
+		newX = x;
+		newY = y;
+		for(int i = 0; i < Random.Range(1,5); i++)
+		{
+			newY += 1;
+			myVox = posGrid[0][x][newY];
+			myVox.setDecay(4);
+			myVox.setCount(2);
+			vox = myVox.getVox();
+			cc = vox.GetComponent<CubeController>();
+			cc.setMaterial(4);
+			cc.setCount(2);
+			heavyDecay.Add(myVox);
+			newX = x;
+			for(int j = 0; j < 3; j++)
+			{
+				newX += 1;
+				myVox = posGrid[0][newX][newY];
+				myVox.setDecay(4);
+				myVox.setCount(2);
+				vox = myVox.getVox();
+				cc = vox.GetComponent<CubeController>();
+				cc.setMaterial(4);
+				cc.setCount(2);
+				heavyDecay.Add(myVox);
+			}
+			newX = x;
+			for(int j = 0; j < 3; j++)
+			{
+				newX -= 1;
+				myVox = posGrid[0][newX][newY];
+				myVox.setDecay(4);
+				myVox.setCount(2);
+				vox = myVox.getVox();
+				cc = vox.GetComponent<CubeController>();
+				cc.setMaterial(4);
+				cc.setCount(2);
+				heavyDecay.Add(myVox);
+			}
+		}
+		Instantiate (Resources.Load ("decay"));
 	}
 
 	
