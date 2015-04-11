@@ -44,21 +44,21 @@ public class GameGUI : MonoBehaviour {
 		mystyle.normal.textColor = Color.white;
 		string time = countToTime (actualcount);
 		GUI.Label (new Rect (Screen.width / 1.5f, Screen.height / 40, Screen.width / 10, Screen.height / 10), time, mystyle);
-		if(GUI.Button (new Rect (Screen.width / 1.5f, Screen.height / 1.3f, Screen.width / 10, Screen.height / 15), "Zoom in"))
+		if(GUI.Button (new Rect (Screen.width / 10, Screen.height / 1.7f, Screen.width / 8, Screen.height / 15), "Zoom in"))
 		{
-			if(Camera.main.fieldOfView >= 50)
-			{
-				Camera.main.fieldOfView -= 1;
+			//if(Camera.main.fieldOfView >= 40)
+			//{
+				Camera.main.fieldOfView -= 5;
 				mystyle.fontSize = 10;
-			}
+			//}
 		}
-		if(GUI.Button (new Rect (Screen.width / 1.5f, Screen.height / 1.175f, Screen.width / 10, Screen.height / 15), "Zoom out"))
+		if(GUI.Button (new Rect (Screen.width / 10, Screen.height / 1.45f, Screen.width / 8, Screen.height / 15), "Zoom out"))
 		{
-			if(Camera.main.fieldOfView < 61){
-				Camera.main.fieldOfView += 1;
+			if(Camera.main.fieldOfView < 65){
+				Camera.main.fieldOfView += 5;
 			}
 		}
-		if(GUI.Button (new Rect (Screen.width / 1.3f, Screen.height / 1.9f, Screen.width/10, Screen.height / 20), "Up"))
+		if(GUI.Button (new Rect (Screen.width / 2, Screen.height / 1.8f, Screen.width/5, Screen.height / 20), "Up"))
 		{
 			Vector3 myPos = Camera.main.transform.position;
 			if(myPos.y < 1f)
@@ -68,7 +68,7 @@ public class GameGUI : MonoBehaviour {
 			}
 		}
 
-		if(GUI.Button (new Rect (Screen.width / 1.3f, Screen.height / 1.545f, Screen.width/10, Screen.height / 20), "Down"))
+		if(GUI.Button (new Rect (Screen.width / 2, Screen.height / 1.45f, Screen.width/5, Screen.height / 20), "Down"))
 		{
 			Vector3 myPos = Camera.main.transform.position;
 			if(myPos.y > -1f)
@@ -77,7 +77,7 @@ public class GameGUI : MonoBehaviour {
 			Camera.main.transform.position = myPos;
 			}
 		}
-		if(GUI.Button (new Rect (Screen.width / 1.5f, Screen.height / 1.7f, Screen.width/10, Screen.height / 20), "Left"))
+		if(GUI.Button (new Rect (Screen.width / 3.75f, Screen.height / 1.6f, Screen.width/5, Screen.height / 20), "Left"))
 		{
 			Vector3 myPos = Camera.main.transform.position;
 			if(myPos.x > -1f)
@@ -86,7 +86,7 @@ public class GameGUI : MonoBehaviour {
 			Camera.main.transform.position = myPos;
 			}
 		}
-		if(GUI.Button (new Rect (Screen.width / 1.15f, Screen.height / 1.7f, Screen.width/10, Screen.height / 20), "Right"))
+		if(GUI.Button (new Rect (Screen.width / 1.4f, Screen.height / 1.6f, Screen.width/5, Screen.height / 20), "Right"))
 		{
 			Vector3 myPos = Camera.main.transform.position;
 			if(myPos.x < 1f)

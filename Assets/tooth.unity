@@ -174,9 +174,9 @@ Camera:
   m_NormalizedViewPortRect:
     serializedVersion: 2
     x: 0
-    y: 0
-    width: .649999976
-    height: 1
+    y: .400000006
+    width: 1
+    height: .600000024
   near clip plane: .300000012
   far clip plane: 1000
   field of view: 100
