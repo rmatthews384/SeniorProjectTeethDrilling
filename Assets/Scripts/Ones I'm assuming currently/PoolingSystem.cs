@@ -734,7 +734,7 @@ public sealed class PoolingSystem : MonoBehaviour {
 							return newObject;
 						}
 
-						if(!breakif && posGrid[posGrid.Count-count][i][j].getPosition() == oldPosition)
+						if(breakif && posGrid[posGrid.Count-count][i][j].getPosition() == oldPosition)
 						{
 							decay = posGrid[posGrid.Count-count][i][j].getDecay();
 							dcount = posGrid[posGrid.Count-count][i][j].getCount();
@@ -742,7 +742,7 @@ public sealed class PoolingSystem : MonoBehaviour {
 							breakif = true;
 							break;
 						}
-						else if(!breakif && posGrid[posGrid.Count-count][i][j].getPosition() == zeroposition)
+						else if(breakif && posGrid[posGrid.Count-count][i][j].getPosition() == zeroposition)
 						{
 							decay = posGrid[0][i][j].getDecay();
 							dcount = posGrid[0][i][j].getCount();
