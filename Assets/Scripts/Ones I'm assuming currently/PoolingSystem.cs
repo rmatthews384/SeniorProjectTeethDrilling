@@ -314,7 +314,7 @@ public sealed class PoolingSystem : MonoBehaviour {
 				startvector.y -= cubeDim;
 			}
 			posGrid.Add (midList);
-
+			midList = new List<List<Vox>>();
 			startvector = new Vector3(.95f, .95f, 0);
 			//Front Depth
 			for (int h = 1; h < 25; h++) {
@@ -468,8 +468,10 @@ public sealed class PoolingSystem : MonoBehaviour {
 					midList.Add (innerList);
 					innerList = new List<Vox> ();
 					startvector.y -= cubeDim;
+					Debug.Log(midList.Count);
 				}
 				posGrid.Add(midList);
+				midList = new List<List<Vox>>();
 			}
 		}
 
@@ -647,7 +649,6 @@ public sealed class PoolingSystem : MonoBehaviour {
 			}
 		}
 		Instantiate (Resources.Load ("decay"));
-
 		/*
 		foreach(List<Vox> l2 in posGrid){
 			foreach(Vox v in l2){
@@ -936,13 +937,13 @@ public sealed class PoolingSystem : MonoBehaviour {
 			}
 		}
 
-			innerList = new List<Vox>();
+			/*innerList = new List<Vox>();
 			midList = new List<List<Vox>>();
 			innerList = posGrid [(int)myVox.getListPos ().x] [(int)myVox.getListPos ().y] [(int)myVox.getListPos ().z];
 			innerList[(int)myVox.getListPos ().z] = myVox;
 			midList = posGrid [(int)myVox.getListPos ().x] [(int)myVox.getListPos ().y];
 			midList[(int)myVox.getListPos ().y] = innerList;
-			posGrid [(int)myVox.getListPos ().x] = midList;
+			posGrid [(int)myVox.getListPos ().x] = midList;*/
 		        
 
 		cc.setLevel ((int)(itemPosition.z / .019f));
