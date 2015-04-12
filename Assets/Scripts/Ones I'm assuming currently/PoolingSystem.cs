@@ -964,13 +964,13 @@ public sealed class PoolingSystem : MonoBehaviour {
 			}
 		}
 
-			/*innerList = new List<Vox>();
+			innerList = new List<Vox>();
 			midList = new List<List<Vox>>();
-			innerList = posGrid [(int)myVox.getListPos ().x] [(int)myVox.getListPos ().y] [(int)myVox.getListPos ().z];
+			innerList = posGrid [(int)myVox.getListPos ().x] [(int)myVox.getListPos ().y] ;
 			innerList[(int)myVox.getListPos ().z] = myVox;
-			midList = posGrid [(int)myVox.getListPos ().x] [(int)myVox.getListPos ().y];
+			midList = posGrid [(int)myVox.getListPos ().x];
 			midList[(int)myVox.getListPos ().y] = innerList;
-			posGrid [(int)myVox.getListPos ().x] = midList;*/
+			posGrid [(int)myVox.getListPos ().x] = midList;
 		        
 
 		cc.setLevel ((int)(itemPosition.z / .019f));
