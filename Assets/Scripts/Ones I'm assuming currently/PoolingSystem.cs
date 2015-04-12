@@ -938,17 +938,10 @@ public sealed class PoolingSystem : MonoBehaviour {
 
 			innerList = new List<Vox>();
 			midList = new List<List<Vox>>();
-			for(int m = 0; m < 35; m++)
-			{
-				innerList.Add(null);
-			}
-			for(int n = 0; n < 35; n++)
-			{
-				midList.Add(null);
-			}
-			innerList.Insert((int)myVox.getListPos().z, myVox);
-			midList.Insert((int)myVox.getListPos().y, innerList);
-			Debug.Log ((int)myVox.getListPos ().x);
+			innerList = posGrid [(int)myVox.getListPos ().x] [(int)myVox.getListPos ().y] [(int)myVox.getListPos ().z];
+			innerList[(int)myVox.getListPos ().z] = myVox;
+			midList = posGrid [(int)myVox.getListPos ().x] [(int)myVox.getListPos ().y];
+			midList[(int)myVox.getListPos ().y] = innerList;
 			posGrid [(int)myVox.getListPos ().x] = midList;
 		        
 
