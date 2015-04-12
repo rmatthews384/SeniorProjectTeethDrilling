@@ -486,8 +486,8 @@ public sealed class PoolingSystem : MonoBehaviour {
 			}
 		}
 
-		int x = Random.Range(10,25);
-		int y = Random.Range(10,25);
+		int x = Random.Range(15,25);
+		int y = Random.Range(15,25);
 		myVox = posGrid[0][x][y];
 		myVox.setDecay(4);
 		myVox.setCount(2);
@@ -674,7 +674,7 @@ public sealed class PoolingSystem : MonoBehaviour {
 		int enamelDestroy =0;
 
 		for(int q = 0; q < destroyed.Count; q++){
-			print(destroyed[q].GetType());
+			//print(destroyed[q].GetType());
 			if(0> 0){
 				decayDestroy++;
 			}
@@ -718,39 +718,45 @@ public sealed class PoolingSystem : MonoBehaviour {
 				return newObject;
 			}
 		}
+		Debug.Log (itemPosition);
 		bool breakif = false;
 		int count = posGrid.Count;
 		while(count > 0)
 		{
-			for(int i = 0; i < (posGrid[posGrid.Count-count].Count); i++)
+			for(int i = 0; i < 35; i++)
 			{
-				for(int j = 0; j < (posGrid[posGrid.Count-count][i].Count); j++)
+				for(int j = 0; j < 35; j++)
 				{
-					if(posGrid[posGrid.Count-count][i][j] != null && posGrid[posGrid.Count-count][i][j].getPosition() == itemPosition)
+					if(posGrid[posGrid.Count-count][i][j] != null)
 					{
-						return newObject;
-					}
-					if(!breakif && posGrid[posGrid.Count-count][i][j].getPosition() == oldPosition)
-					{
-						decay = posGrid[0][i][j].getDecay();
-						dcount = posGrid[0][i][j].getCount();
-						found = true;
-						breakif = true;
-						break;
-					}
-					else if(!breakif && posGrid[posGrid.Count-count][i][j].getPosition() == zeroposition)
-					{
-						decay = posGrid[0][i][j].getDecay();
-						dcount = posGrid[0][i][j].getCount();
-						found = false;	
-						breakif = true;
-						break;
+						if(posGrid[posGrid.Count-count][i][j].getPosition() == itemPosition)
+						{
+							return newObject;
+						}
+
+						if(!breakif && posGrid[posGrid.Count-count][i][j].getPosition() == oldPosition)
+						{
+							decay = posGrid[posGrid.Count-count][i][j].getDecay();
+							dcount = posGrid[posGrid.Count-count][i][j].getCount();
+							found = true;
+							breakif = true;
+							break;
+						}
+						else if(!breakif && posGrid[posGrid.Count-count][i][j].getPosition() == zeroposition)
+						{
+							decay = posGrid[0][i][j].getDecay();
+							dcount = posGrid[0][i][j].getCount();
+							found = false;	
+							breakif = true;
+							break;
+						}
 					}
 				}
 			}
 			count--;
 		}
 	
+		Debug.Log ("Decay: " + decay);
 		cc = newObject.GetComponent<CubeController> ();
 		newObject.transform.position = itemPosition;
 		newObject.transform.rotation = itemRotation;
@@ -777,7 +783,7 @@ public sealed class PoolingSystem : MonoBehaviour {
 		}
 		
 		Vector3 listPos = new Vector3 ((int)(itemPosition.z / cubeDim), vectory, vectorz);
-		print((int)(itemPosition.z/cubeDim));
+		//print((int)(itemPosition.z/cubeDim));
 		Vox myVox = new Vox(itemPosition, listPos, (int)(itemPosition.z/cubeDim), newObject);
 
 		if(found)
