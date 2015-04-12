@@ -939,26 +939,25 @@ public sealed class PoolingSystem : MonoBehaviour {
 		{
 			innerList = new List<Vox>();
 			midList = new List<List<Vox>>();
-			innerList.Add(myVox);
-			midList.Add(innerList);
-			posGrid.Add(midList);
-		}
-		else if((int)myVox.getListPos().y > posGrid[(int)myVox.getListPos().x].Count-1)
-		{
-			innerList = new List<Vox>();
-			midList = new List<List<Vox>>();
-			innerList.Add(myVox);
-			midList.Add(innerList);
+			for(int m = 0; m < 35; m++)
+			{
+				innerList.Add(null);
+			}
+			for(int n = 0; n < 35; n++)
+			{
+				midList.Add(null);
+			}
+			innerList.Insert((int)myVox.getListPos().z, myVox);
+			midList.Insert((int)myVox.getListPos().y, innerList);
 			posGrid.Insert((int)myVox.getListPos().x, midList);
 		}
-		else if((int)myVox.getListPos().z > posGrid[(int)myVox.getListPos().x][(int)myVox.getListPos().y].Count-1)
+		else
 		{
-			innerList = new List<Vox>();
-			innerList.Add(myVox);
-			midList = posGrid[(int)myVox.getListPos().x];
-			midList.Insert((int)myVox.getListPos().x, innerList);
+			innerList.Insert((int)myVox.getListPos().z, myVox);
+			midList.Insert((int)myVox.getListPos().y, innerList);
 			posGrid.Insert((int)myVox.getListPos().x, midList);
 		}
+
 		cc.setLevel ((int)(itemPosition.z / .019f));
 		newObject.SetActive (true);
 			
