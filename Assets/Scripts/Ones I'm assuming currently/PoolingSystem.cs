@@ -720,6 +720,7 @@ public sealed class PoolingSystem : MonoBehaviour {
 		Debug.Log (itemPosition);
 		bool breakif = false;
 		int count = posGrid.Count;
+		Debug.Log(posGrid.Count);
 		while(count > 0)
 		{
 			for(int i = 0; i < 35; i++)
@@ -733,7 +734,7 @@ public sealed class PoolingSystem : MonoBehaviour {
 							return newObject;
 						}
 
-						if(breakif && posGrid[posGrid.Count-count][i][j].getPosition() == oldPosition)
+						if(!breakif && posGrid[posGrid.Count-count][i][j].getPosition() == oldPosition)
 						{
 							decay = posGrid[posGrid.Count-count][i][j].getDecay();
 							dcount = posGrid[posGrid.Count-count][i][j].getCount();
@@ -741,7 +742,7 @@ public sealed class PoolingSystem : MonoBehaviour {
 							breakif = true;
 							break;
 						}
-						else if(breakif && posGrid[posGrid.Count-count][i][j].getPosition() == zeroposition)
+						else if(!breakif && posGrid[posGrid.Count-count][i][j].getPosition() == zeroposition)
 						{
 							decay = posGrid[0][i][j].getDecay();
 							dcount = posGrid[0][i][j].getCount();
@@ -935,8 +936,6 @@ public sealed class PoolingSystem : MonoBehaviour {
 			}
 		}
 
-		if(((int)myVox.getListPos().x) > posGrid.Count-1)
-		{
 			innerList = new List<Vox>();
 			midList = new List<List<Vox>>();
 			for(int m = 0; m < 35; m++)
@@ -949,14 +948,9 @@ public sealed class PoolingSystem : MonoBehaviour {
 			}
 			innerList.Insert((int)myVox.getListPos().z, myVox);
 			midList.Insert((int)myVox.getListPos().y, innerList);
-			posGrid.Insert((int)myVox.getListPos().x, midList);
-		}
-		else
-		{
-			innerList.Insert((int)myVox.getListPos().z, myVox);
-			midList.Insert((int)myVox.getListPos().y, innerList);
-			posGrid.Insert((int)myVox.getListPos().x, midList);
-		}
+			Debug.Log ((int)myVox.getListPos ().x);
+			posGrid [(int)myVox.getListPos ().x] = midList;
+		        
 
 		cc.setLevel ((int)(itemPosition.z / .019f));
 		newObject.SetActive (true);
