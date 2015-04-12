@@ -12,7 +12,8 @@ public class DecayPropagation : MonoBehaviour {
 
 	// Use this for initialization
 	void Start () {
-		ps = GameObject.FindGameObjectWithTag("APS").GetComponent<PoolingSystem>();
+		//ps = GameObject.FindGameObjectWithTag("APS").GetComponent<PoolingSystem>();
+		ps = PoolingSystem.Instance;
 		List<Vox> heavyDecay = ps.heavyDecay;
 
 		foreach(Vox value in heavyDecay)
@@ -424,6 +425,7 @@ public class DecayPropagation : MonoBehaviour {
 				i++;
 			}
 		}
+		ps.calcTotDecay();
 	}
 	
 	// Update is called once per frame

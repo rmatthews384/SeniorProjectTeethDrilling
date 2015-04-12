@@ -114,9 +114,9 @@ public sealed class PoolingSystem : MonoBehaviour {
 	public List<List<List<Vox>>> posGrid = new List<List<List<Vox>>>();
 	static List<List<Vox>> midList = new List<List<Vox>>();
 	static List<Vox> innerList = new List<Vox>();
-	static ArrayList destroyed = new ArrayList();
+	static List<GameObject> destroyed = new List<GameObject>();
 	static float cubeDim = 0.019f;
-	static public float totalDecay = 0;
+	static public int totWork = 0;
 	
 	[System.Serializable]
 	public class PoolingItems
@@ -124,7 +124,6 @@ public sealed class PoolingSystem : MonoBehaviour {
 		public GameObject prefab;
 		public int amount;
 	}
-	
 
 	public static PoolingSystem Instance;
 	
@@ -269,10 +268,9 @@ public sealed class PoolingSystem : MonoBehaviour {
 						newItem.SetActive (true);
 						pooledItems [i].Add (newItem);
 						newItem.transform.parent = transform;
-						for (int c = 0; c < 2; c++) {
-							innerList.Add (null);
-						}
-
+					}
+					for (int c = 0; c < 2; c++) {
+						innerList.Add (null);
 					}
 				} else if (j == 29 || j == 5) {
 					startvector.x -= cubeDim;
@@ -315,6 +313,8 @@ public sealed class PoolingSystem : MonoBehaviour {
 			}
 			posGrid.Add (midList);
 			midList = new List<List<Vox>>();
+
+
 			startvector = new Vector3(.95f, .95f, 0);
 			//Front Depth
 			for (int h = 1; h < 25; h++) {
@@ -335,6 +335,7 @@ public sealed class PoolingSystem : MonoBehaviour {
 							newItem = (GameObject)Instantiate (poolingItems [i].prefab, startvector, Quaternion.identity);
 							Vector3 listPos = new Vector3 (h, u, q);
 							myVox = new Vox (startvector, listPos, 0, newItem);
+							innerList.RemoveAt(q);
 							innerList.Insert (q, myVox);
 							cc = newItem.GetComponent<CubeController> ();
 							cc.setID (id);
@@ -355,6 +356,7 @@ public sealed class PoolingSystem : MonoBehaviour {
 							newItem = (GameObject)Instantiate (poolingItems [i].prefab, startvector, Quaternion.identity);
 							Vector3 listPos = new Vector3 (h, u, q);
 							myVox = new Vox (startvector, listPos, 0, newItem);
+							innerList.RemoveAt(q);
 							innerList.Insert (q, myVox);
 							cc = newItem.GetComponent<CubeController> ();
 							cc.setID (id);
@@ -375,6 +377,7 @@ public sealed class PoolingSystem : MonoBehaviour {
 							newItem = (GameObject)Instantiate (poolingItems [i].prefab, startvector, Quaternion.identity);
 							Vector3 listPos = new Vector3 (h, u, q);
 							myVox = new Vox (startvector, listPos, 0, newItem);
+							innerList.RemoveAt(q);
 							innerList.Insert (q, myVox);
 							cc = newItem.GetComponent<CubeController> ();
 							cc.setID (id);
@@ -395,6 +398,7 @@ public sealed class PoolingSystem : MonoBehaviour {
 							newItem = (GameObject)Instantiate (poolingItems [i].prefab, startvector, Quaternion.identity);
 							Vector3 listPos = new Vector3 (h, u, q);
 							myVox = new Vox (startvector, listPos, 0, newItem);
+							innerList.RemoveAt(q);
 							innerList.Insert (q, myVox);
 							cc = newItem.GetComponent<CubeController> ();
 							cc.setID (id);
@@ -415,6 +419,7 @@ public sealed class PoolingSystem : MonoBehaviour {
 							newItem = (GameObject)Instantiate (poolingItems [i].prefab, startvector, Quaternion.identity);
 							Vector3 listPos = new Vector3 (h, u, q);
 							myVox = new Vox (startvector, listPos, 0, newItem);
+							innerList.RemoveAt(q);
 							innerList.Insert (q, myVox);
 							cc = newItem.GetComponent<CubeController> ();
 							cc.setID (id);
@@ -435,6 +440,7 @@ public sealed class PoolingSystem : MonoBehaviour {
 							newItem = (GameObject)Instantiate (poolingItems [i].prefab, startvector, Quaternion.identity);
 							Vector3 listPos = new Vector3 (h, u, q);
 							myVox = new Vox (startvector, listPos, 0, newItem);
+							innerList.RemoveAt(q);
 							innerList.Insert (q, myVox);
 							cc = newItem.GetComponent<CubeController> ();
 							cc.setID (id);
@@ -455,6 +461,7 @@ public sealed class PoolingSystem : MonoBehaviour {
 							newItem = (GameObject)Instantiate (poolingItems [i].prefab, startvector, Quaternion.identity);
 							Vector3 listPos = new Vector3 (h, u, q);
 							myVox = new Vox (startvector, listPos, 0, newItem);
+							innerList.RemoveAt(q);
 							innerList.Insert (q, myVox);
 							cc = newItem.GetComponent<CubeController> ();
 							cc.setID (id);
@@ -468,13 +475,12 @@ public sealed class PoolingSystem : MonoBehaviour {
 					midList.Add (innerList);
 					innerList = new List<Vox> ();
 					startvector.y -= cubeDim;
-					Debug.Log(midList.Count);
 				}
+				//print(midList.Count);
 				posGrid.Add(midList);
 				midList = new List<List<Vox>>();
 			}
 		}
-
 
 		//Decay
 
@@ -649,22 +655,42 @@ public sealed class PoolingSystem : MonoBehaviour {
 			}
 		}
 		Instantiate (Resources.Load ("decay"));
-		/*
-		foreach(List<Vox> l2 in posGrid){
-			foreach(Vox v in l2){
-				if(v.getDecay() > 0){
-					totalDecay++;
+
+	}
+
+	public void calcTotDecay(){
+		List<List<Vox>> l2;
+		List<Vox> l1;
+
+		l2 = posGrid[0];
+		for(int k = 0; k < l2.Count; k++){
+			l1 = l2[k];
+			//Debug.Log(l1.Count);
+			for(int m = 0; m < l1.Count; m++){
+				Vox v = l1[m];
+				if(v != null){
+					if(v.getVox().GetComponent<CubeController>().getDecay() == 4 || v.getDecay() == 4){
+						totWork += 10;
+					}
+					else if(v.getVox().GetComponent<CubeController>().getDecay() == 3 || v.getDecay() == 3){
+						totWork += 8;
+					}
+					else if(v.getVox().GetComponent<CubeController>().getDecay() == 2 || v.getDecay() == 2){
+						totWork += 5;
+					}
+					else if(v.getVox().GetComponent<CubeController>().getDecay() == 1 || v.getDecay() == 1){
+						totWork += 2;
+					}
 				}
 			}
 		}
-		*/
+		
+		Debug.Log(totWork);
 	}
 
-	
-	
 	public static void DestroyAPS(GameObject myObject)
 	{
-		destroyed.Add (myObject.transform.position);
+		destroyed.Add (myObject);
 		myObject.SetActive(false);
 	}
 
@@ -675,14 +701,15 @@ public sealed class PoolingSystem : MonoBehaviour {
 
 		for(int q = 0; q < destroyed.Count; q++){
 			//print(destroyed[q].GetType());
-			if(0> 0){
+			if(destroyed[q].GetComponent<CubeController>().getDecay() > 0){
 				decayDestroy++;
 			}
 			else{
 				enamelDestroy++;
 			}
 		}
-		//print(decayDestroy);
+		Application.LoadLevel("score");
+		Debug.Log("decayDestroy " + decayDestroy +" enamelDestroy " + enamelDestroy + " totDecay " + totWork);
 	}
 
 	public GameObject InstantiateAPS (string itemType)
@@ -713,7 +740,7 @@ public sealed class PoolingSystem : MonoBehaviour {
 
 		for(int i =0; i < destroyed.Count; i++)
 		{
-			if((Vector3)destroyed[i] == itemPosition)
+			if(destroyed[i].transform.position == itemPosition)
 			{
 				return newObject;
 			}
