@@ -48,7 +48,6 @@ public class Vox
 	GameObject vox;
 	int level;
 	int decay;
-	int count;
 	
 	public Vox(Vector3 position, Vector3 listPos, int level, GameObject vox)
 	{
@@ -66,11 +65,6 @@ public class Vox
 	public void setDecay(int decay)
 	{
 		this.decay = decay;
-	}
-
-	public void setCount(int count)
-	{
-		this.count = count;
 	}
 
 	public Vector3 getPosition()
@@ -93,10 +87,6 @@ public class Vox
 		return this.decay;
 	}
 
-	public int getCount()
-	{
-		return this.count;
-	}
 	
 	public GameObject getVox()
 	{
@@ -484,15 +474,14 @@ public sealed class PoolingSystem : MonoBehaviour {
 
 		//Decay
 
-		int x = Random.Range(15,25);
-		int y = Random.Range(15,25);
+		int x = Random.Range(15,26);
+		int y = Random.Range(15,26);
 		myVox = posGrid[0][x][y];
 		myVox.setDecay(4);
-		myVox.setCount(2);
+		posGrid[0][x][y].setDecay(4);
 		GameObject vox = myVox.getVox();
 		cc = vox.GetComponent<CubeController>();
 		cc.setMaterial(4);
-		cc.setCount(2);
 		heavyDecay.Add(myVox);
 		int newX = x;
 		int newY = y;
@@ -501,11 +490,10 @@ public sealed class PoolingSystem : MonoBehaviour {
 			newX -= 1;
 			myVox = posGrid[0][newX][y];
 			myVox.setDecay(4);
-			myVox.setCount(2);
+			posGrid[0][newX][y].setDecay(4);
 			vox = myVox.getVox();
-			cc = vox.GetComponent<CubeController>();
+			cc =  vox.GetComponent<CubeController>();
 			cc.setMaterial(4);
-			cc.setCount(2);
 			heavyDecay.Add(myVox);
 			newY = y;
 			for(int j = 0; j < 4; j++)
@@ -513,11 +501,10 @@ public sealed class PoolingSystem : MonoBehaviour {
 				newY += 1;
 				myVox = posGrid[0][newX][newY];
 				myVox.setDecay(4);
-				myVox.setCount(2);
+				posGrid[0][newX][newY].setDecay(4);
 				vox = myVox.getVox();
 				cc = vox.GetComponent<CubeController>();
 				cc.setMaterial(4);
-				cc.setCount(2);
 				heavyDecay.Add(myVox);
 			}
 			newY = y;
@@ -526,11 +513,10 @@ public sealed class PoolingSystem : MonoBehaviour {
 				newY -= 1;
 				myVox = posGrid[0][newX][newY];
 				myVox.setDecay(4);
-				myVox.setCount(2);
+				posGrid[0][newX][newY].setDecay(4);
 				vox = myVox.getVox();
 				cc = vox.GetComponent<CubeController>();
 				cc.setMaterial(4);
-				cc.setCount(2);
 				heavyDecay.Add(myVox);
 			}
 		}
@@ -541,11 +527,10 @@ public sealed class PoolingSystem : MonoBehaviour {
 			newX += 1;
 			myVox = posGrid[0][newX][y];
 			myVox.setDecay(4);
-			myVox.setCount(2);
+			posGrid[0][newX][y].setDecay(4);
 			vox = myVox.getVox();
 			cc = vox.GetComponent<CubeController>();
 			cc.setMaterial(4);
-			cc.setCount(2);
 			heavyDecay.Add(myVox);
 			newY = y;
 			for(int j = 0; j < 4; j++)
@@ -553,11 +538,10 @@ public sealed class PoolingSystem : MonoBehaviour {
 				newY += 1;
 				myVox = posGrid[0][newX][newY];
 				myVox.setDecay(4);
-				myVox.setCount(2);
+				posGrid[0][newX][newY].setDecay(4);
 				vox = myVox.getVox();
 				cc = vox.GetComponent<CubeController>();
 				cc.setMaterial(4);
-				cc.setCount(2);
 				heavyDecay.Add(myVox);
 			}
 			newY = y;
@@ -566,11 +550,10 @@ public sealed class PoolingSystem : MonoBehaviour {
 				newY -= 1;
 				myVox = posGrid[0][newX][newY];
 				myVox.setDecay(4);
-				myVox.setCount(2);
+				posGrid[0][newX][newY].setDecay(4);
 				vox = myVox.getVox();
 				cc = vox.GetComponent<CubeController>();
 				cc.setMaterial(4);
-				cc.setCount(2);
 				heavyDecay.Add(myVox);
 			}
 		}
@@ -581,11 +564,10 @@ public sealed class PoolingSystem : MonoBehaviour {
 			newY -= 1;
 			myVox = posGrid[0][x][newY];
 			myVox.setDecay(4);
-			myVox.setCount(2);
+			posGrid[0][x][newY].setDecay(4);
 			vox = myVox.getVox();
 			cc = vox.GetComponent<CubeController>();
 			cc.setMaterial(4);
-			cc.setCount(2);
 			heavyDecay.Add(myVox);
 			newX = x;
 			for(int j = 0; j < 4; j++)
@@ -593,11 +575,10 @@ public sealed class PoolingSystem : MonoBehaviour {
 				newX += 1;
 				myVox = posGrid[0][newX][newY];
 				myVox.setDecay(4);
-				myVox.setCount(2);
+				posGrid[0][newX][newY].setDecay(4);
 				vox = myVox.getVox();
 				cc = vox.GetComponent<CubeController>();
 				cc.setMaterial(4);
-				cc.setCount(2);
 				heavyDecay.Add(myVox);
 			}
 			newX = x;
@@ -606,11 +587,10 @@ public sealed class PoolingSystem : MonoBehaviour {
 				newX -= 1;
 				myVox = posGrid[0][newX][newY];
 				myVox.setDecay(4);
-				myVox.setCount(2);
+				posGrid[0][newX][newY].setDecay(4);
 				vox = myVox.getVox();
 				cc = vox.GetComponent<CubeController>();
 				cc.setMaterial(4);
-				cc.setCount(2);
 				heavyDecay.Add(myVox);
 			}
 		}
@@ -621,11 +601,10 @@ public sealed class PoolingSystem : MonoBehaviour {
 			newY += 1;
 			myVox = posGrid[0][x][newY];
 			myVox.setDecay(4);
-			myVox.setCount(2);
+			posGrid[0][x][newY].setDecay(4);
 			vox = myVox.getVox();
 			cc = vox.GetComponent<CubeController>();
 			cc.setMaterial(4);
-			cc.setCount(2);
 			heavyDecay.Add(myVox);
 			newX = x;
 			for(int j = 0; j < 4; j++)
@@ -633,11 +612,10 @@ public sealed class PoolingSystem : MonoBehaviour {
 				newX += 1;
 				myVox = posGrid[0][newX][newY];
 				myVox.setDecay(4);
-				myVox.setCount(2);
+				posGrid[0][newX][newY].setDecay(4);
 				vox = myVox.getVox();
 				cc = vox.GetComponent<CubeController>();
 				cc.setMaterial(4);
-				cc.setCount(2);
 				heavyDecay.Add(myVox);
 			}
 			newX = x;
@@ -646,15 +624,51 @@ public sealed class PoolingSystem : MonoBehaviour {
 				newX -= 1;
 				myVox = posGrid[0][newX][newY];
 				myVox.setDecay(4);
-				myVox.setCount(2);
+				posGrid[0][newX][newY].setDecay(4);
 				vox = myVox.getVox();
 				cc = vox.GetComponent<CubeController>();
 				cc.setMaterial(4);
-				cc.setCount(2);
 				heavyDecay.Add(myVox);
 			}
 		}
 		Instantiate (Resources.Load ("decay"));
+
+		//extra top height
+		/*for(int j = 0; j < 5; j++)
+		{
+		startvector.x = .95f-cubeDim*3;
+		startvector.y = .95f;
+		startvector.z = -cubeDim;
+		GameObject newItem2;
+		GameObject singleFiller = (GameObject)Resources.Load ("singleFillerCube");
+		GameObject quadFiller = (GameObject)Resources.Load ("quadCube");
+		startvector.y -= cubeDim * 6;
+		for(int i = 0; i < 22; i++)
+		{
+				newItem2 = (GameObject)Instantiate (quadFiller, startvector, Quaternion.identity);
+				newItem2.SetActive (true);
+				startvector.y -= cubeDim;
+		}
+		}
+
+		for(int j = 0; j < 5; j++)
+		{
+			startvector.x = .95f-cubeDim*33;
+			startvector.y = .95f;
+			startvector.z = -cubeDim;
+			GameObject newItem2;
+			GameObject singleFiller = (GameObject)Resources.Load ("singleFillerCube");
+			GameObject quadFiller = (GameObject)Resources.Load ("quadCube");
+			startvector.y -= cubeDim * 6;
+			for(int i = 0; i < 22; i++)
+			{
+				newItem2 = (GameObject)Instantiate (quadFiller, startvector, Quaternion.identity);
+				newItem2.SetActive (true);
+				startvector.y -= cubeDim;
+			}
+		}*/
+		
+
 
 	}
 
@@ -665,7 +679,6 @@ public sealed class PoolingSystem : MonoBehaviour {
 		l2 = posGrid[0];
 		for(int k = 0; k < l2.Count; k++){
 			l1 = l2[k];
-			//Debug.Log(l1.Count);
 			for(int m = 0; m < l1.Count; m++){
 				Vox v = l1[m];
 				if(v != null){
@@ -729,152 +742,57 @@ public sealed class PoolingSystem : MonoBehaviour {
 		Vector3 oldPosition = itemPosition;
 		oldPosition.z -= cubeDim;
 		zeroposition.z = 0;
-		bool found = false;
 		int decay = 1;
-		int dcount = 0;
-		if(itemPosition.x >= .95f || itemPosition.x < -.38f || itemPosition.y > .95f || itemPosition.y < -.361f)
+		if(itemPosition.x > .931f || itemPosition.x < .285 || itemPosition.y > .95f || itemPosition.y < .304f)
 		{
 			return newObject;
 		}
 
 
-		for(int i =0; i < destroyed.Count; i++)
+		/*for(int i =0; i < destroyed.Count; i++)
 		{
 			if(destroyed[i].transform.position == itemPosition)
 			{
 				return newObject;
 			}
-		}
-		Debug.Log (itemPosition);
-		bool breakif = false;
+		}*/
 		int count = posGrid.Count;
-		Debug.Log(posGrid.Count);
-		while(count > 0)
-		{
-			for(int i = 0; i < 35; i++)
-			{
-				for(int j = 0; j < 35; j++)
-				{
-					if(posGrid[posGrid.Count-count][i][j] != null)
-					{
-						if(posGrid[posGrid.Count-count][i][j].getPosition() == itemPosition)
-						{
-							return newObject;
-						}
 
-						if(!breakif && posGrid[posGrid.Count-count][i][j].getPosition() == oldPosition)
-						{
-							decay = posGrid[posGrid.Count-count][i][j].getDecay();
-							dcount = posGrid[posGrid.Count-count][i][j].getCount();
-							found = true;
-							breakif = true;
-							break;
-						}
-						else if(!breakif && posGrid[posGrid.Count-count][i][j].getPosition() == zeroposition)
-						{
-							decay = posGrid[0][i][j].getDecay();
-							dcount = posGrid[0][i][j].getCount();
-							found = false;	
-							breakif = true;
-							break;
-						}
-					}
-				}
-			}
-			count--;
-		}
-	
-		Debug.Log ("Decay: " + decay);
 		cc = newObject.GetComponent<CubeController> ();
 		newObject.transform.position = itemPosition;
 		newObject.transform.rotation = itemRotation;
 
-		float vectory = 0;
-		float vectorz = 0;
-		if(itemPosition.x >= 0)
+		int vectory = 0;
+		int vectorx = 0;
+
+			vectorx = Mathf.RoundToInt(itemPosition.x/cubeDim);
+			vectorx = (vectorx-49)*-1;
+
+
+			vectory = Mathf.RoundToInt(itemPosition.y/cubeDim);
+			vectory = (vectory - 50) * -1;
+	
+
+		if(posGrid[Mathf.RoundToInt(itemPosition.z/cubeDim)][vectory][vectorx] != null )
 		{
-			vectory = itemPosition.x/cubeDim;
-			vectory = 50f - vectory;
+				return newObject;
+	
+		}
+
+		if(posGrid[Mathf.RoundToInt(itemPosition.z/cubeDim)][vectory][vectorx] == null &&posGrid[0][vectory][vectorx] != null)
+		{
+				decay = posGrid[0][vectory][vectorx].getDecay();
+
 		}
 		else
 		{
-			vectory = (itemPosition.x*(-1))/cubeDim + 49f;
+			return newObject;
 		}
-		if(itemPosition.y > 0)
-		{
-			vectorz = itemPosition.y/cubeDim;
-			vectorz = 50f - vectorz;
-		}
-		else
-		{
-			vectorz = (itemPosition.y*(-1))/cubeDim + 49f;
-		}
-		
-		Vector3 listPos = new Vector3 ((int)(itemPosition.z / cubeDim), vectory, vectorz);
-		//print((int)(itemPosition.z/cubeDim));
+	
+		Vector3 listPos = new Vector3 (Mathf.RoundToInt(itemPosition.z / cubeDim), vectory, vectorx);
 		Vox myVox = new Vox(itemPosition, listPos, (int)(itemPosition.z/cubeDim), newObject);
 
-		if(found)
-		{
-			if(decay > 0)
-			{
-				if(decay == 4 && dcount == 1)
-				{
-					cc.setCount(3);
-					myVox.setCount(3);
-				}
-				else if(decay == 3 && dcount == 1)
-				{
-					cc.setCount(3);
-					myVox.setCount(3);
-				}
-				else if(decay == 2 && dcount == 1)
-				{
-					cc.setCount(2);
-					myVox.setCount(2);
-				}
-				else if(decay == 1 && dcount == 1)
-				{
-					cc.setCount(0);
-					myVox.setCount(0);
-				}
-				else if(decay == 0)
-				{
-					cc.setCount(0);
-					myVox.setCount(0);
-				}
-				else
-				{
-					cc.setCount(dcount-1);
-					myVox.setCount(dcount-1);
-				}
-				if(dcount == 1)
-				{
-					cc.setMaterial(decay-1);
-					myVox.setDecay (decay-1);
-				}
-				else if(dcount > 1)
-				{
-					cc.setMaterial(decay);
-					myVox.setDecay(decay);
-				}
-				else
-				{
-					cc.setMaterial(0);
-					myVox.setDecay(0);
-				}
-			}
-			else
-			{
-				cc.setMaterial(0);
-				cc.setCount(0);
-				myVox.setCount(0);
-				myVox.setDecay (0);
-			}
-		}
-		else
-		{
-			int multiple = (int)(itemPosition.z/cubeDim);
+			int multiple = Mathf.RoundToInt(itemPosition.z/cubeDim);
 			if(decay == 4)
 			{
 				if(multiple <= 1)
@@ -962,7 +880,7 @@ public sealed class PoolingSystem : MonoBehaviour {
 				cc.setMaterial(0);
 				myVox.setDecay (0);
 			}
-		}
+		
 
 			innerList = new List<Vox>();
 			midList = new List<List<Vox>>();
@@ -973,7 +891,7 @@ public sealed class PoolingSystem : MonoBehaviour {
 			posGrid [(int)myVox.getListPos ().x] = midList;
 		        
 
-		cc.setLevel ((int)(itemPosition.z / .019f));
+		cc.setLevel (Mathf.RoundToInt(itemPosition.z / .019f));
 		newObject.SetActive (true);
 			
 		return newObject;

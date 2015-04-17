@@ -12,8 +12,8 @@ public class DecayPropagation : MonoBehaviour {
 
 	// Use this for initialization
 	void Start () {
-		//ps = GameObject.FindGameObjectWithTag("APS").GetComponent<PoolingSystem>();
-		ps = PoolingSystem.Instance;
+		ps = GameObject.FindGameObjectWithTag("APS").GetComponent<PoolingSystem>();
+		//ps = PoolingSystem.Instance;
 		List<Vox> heavyDecay = ps.heavyDecay;
 
 		foreach(Vox value in heavyDecay)
@@ -37,47 +37,18 @@ public class DecayPropagation : MonoBehaviour {
 				int newZ = z - 1; 
 				if(newY >= 0 && newZ >= 0 && newY <= 34 && newZ <= 34 && !finished.Contains(ps.posGrid[x][newY][newZ]))
 				{
-					if(newY > 5 || (newY == 0 && newZ >= 6 && newZ < 29) || (newY == 1 && newZ >= 5 && newZ < 30) ||
-					   (newY == 2 && newZ >= 4 && newZ < 31)|| (newY == 3 && newZ >= 3 && newZ < 32)|| 
-					   (newY == 4 && newZ >= 2 && newZ < 33) || (newY == 5 && newZ >= 1 && newZ < 34))
-					{
 						if(ps.posGrid[x][newY][newZ] != null)
 						{
 							next.Enqueue(ps.posGrid[x][newY][newZ]);
 							cc = ps.posGrid[x][newY][newZ].getVox().GetComponent<CubeController>();
 						
-						if(myvox.getDecay()-1 > 0 && cc.getDecay() == 0)
+						if(myvox.getDecay()-1 > 0 && cc.getDecay() != 4)
 						{
 							cc.setMaterial(myvox.getDecay()-1);
 							ps.posGrid[x][newY][newZ].setDecay(myvox.getDecay()-1);
-							if(myvox.getDecay() == 4)
-							{
-								ps.posGrid[x][newY][newZ].setCount(3);
-							}
-							else if(myvox.getDecay() == 3)
-							{
-								ps.posGrid[x][newY][newZ].setCount(3);
-							}
-							else if(myvox.getDecay() == 2)
-							{
-								ps.posGrid[x][newY][newZ].setCount(2);
-							}
-							else if(myvox.getDecay() == 1)
-							{
-								ps.posGrid[x][newY][newZ].setCount(0);
-							}
-							else
-							{
-								ps.posGrid[x][newY][newZ].setCount(0);
-							}
+
 						}
-					}
-					}
-					else if(cc.getDecay() != 4 && ps.posGrid[x][newY][newZ] != null)
-					{
-						cc.setMaterial(0);
-						ps.posGrid[x][newY][newZ].setDecay(0);
-						ps.posGrid[x][newY][newZ].setCount(0);
+					
 					}
 					finished.Add(ps.posGrid[x][newY][newZ]);
 				}
@@ -86,48 +57,19 @@ public class DecayPropagation : MonoBehaviour {
 				newZ = z +1;
 				if(newY >= 0 && newZ >= 0 && newY <= 34 && newZ <= 34 && !finished.Contains(ps.posGrid[x][newY][newZ]))
 				{
-					if(newY > 5 || (newY == 0 && newZ >= 6 && newZ < 29) || (newY == 1 && newZ >= 5 && newZ < 30) ||
-					   (newY == 2 && newZ >= 4 && newZ < 31)|| (newY == 3 && newZ >= 3 && newZ < 32)|| 
-					   (newY == 4 && newZ >= 2 && newZ < 33) || (newY == 5 && newZ >= 1 && newZ < 34))
-					{
 						if(ps.posGrid[x][newY][newZ] != null)
 						{
 							next.Enqueue(ps.posGrid[x][newY][newZ]);
 							cc = ps.posGrid[x][newY][newZ].getVox().GetComponent<CubeController>();
 							
-							if(myvox.getDecay()-1 > 0 && cc.getDecay() == 0)
+							if(myvox.getDecay()-1 > 0 && cc.getDecay() != 4)
 							{
 								cc.setMaterial(myvox.getDecay()-1);
 								ps.posGrid[x][newY][newZ].setDecay(myvox.getDecay()-1);
-								if(myvox.getDecay() == 4)
-								{
-									ps.posGrid[x][newY][newZ].setCount(3);
-								}
-								else if(myvox.getDecay() == 3)
-								{
-									ps.posGrid[x][newY][newZ].setCount(3);
-								}
-								else if(myvox.getDecay() == 2)
-								{
-									ps.posGrid[x][newY][newZ].setCount(2);
-								}
-								else if(myvox.getDecay() == 1)
-								{
-									ps.posGrid[x][newY][newZ].setCount(0);
-								}
-								else
-								{
-									ps.posGrid[x][newY][newZ].setCount(0);
-								}
+
 							}
 						}
-					}
-					else if(cc.getDecay() != 4 && ps.posGrid[x][newY][newZ] != null)
-					{
-						cc.setMaterial(0);
-						ps.posGrid[x][newY][newZ].setDecay(0);
-						ps.posGrid[x][newY][newZ].setCount(0);
-					}
+
 					finished.Add(ps.posGrid[x][newY][newZ]);
 				}
 				//top left
@@ -135,48 +77,19 @@ public class DecayPropagation : MonoBehaviour {
 				newZ = z + 1;
 				if(newY >= 0 && newZ >= 0 && newY <= 34 && newZ <= 34 && !finished.Contains(ps.posGrid[x][newY][newZ]))
 				{
-					if(newY > 5 || (newY == 0 && newZ >= 6 && newZ < 29) || (newY == 1 && newZ >= 5 && newZ < 30) ||
-					   (newY == 2 && newZ >= 4 && newZ < 31)|| (newY == 3 && newZ >= 3 && newZ < 32)|| 
-					   (newY == 4 && newZ >= 2 && newZ < 33) || (newY == 5 && newZ >= 1 && newZ < 34))
-					{
 						if(ps.posGrid[x][newY][newZ] != null)
 						{
 							next.Enqueue(ps.posGrid[x][newY][newZ]);
 							cc = ps.posGrid[x][newY][newZ].getVox().GetComponent<CubeController>();
 							
-							if(myvox.getDecay()-1 > 0 && cc.getDecay() == 0)
+							if(myvox.getDecay()-1 > 0 && cc.getDecay() != 4)
 							{
 								cc.setMaterial(myvox.getDecay()-1);
 								ps.posGrid[x][newY][newZ].setDecay(myvox.getDecay()-1);
-								if(myvox.getDecay() == 4)
-								{
-									ps.posGrid[x][newY][newZ].setCount(3);
-								}
-								else if(myvox.getDecay() == 3)
-								{
-									ps.posGrid[x][newY][newZ].setCount(3);
-								}
-								else if(myvox.getDecay() == 2)
-								{
-									ps.posGrid[x][newY][newZ].setCount(2);
-								}
-								else if(myvox.getDecay() == 1)
-								{
-									ps.posGrid[x][newY][newZ].setCount(0);
-								}
-								else
-								{
-									ps.posGrid[x][newY][newZ].setCount(0);
-								}
+
 							}
 						}
-					}
-					else if(cc.getDecay() != 4 && ps.posGrid[x][newY][newZ] != null)
-					{
-						cc.setMaterial(0);
-						ps.posGrid[x][newY][newZ].setDecay(0);
-						ps.posGrid[x][newY][newZ].setCount(0);
-					}
+					
 					finished.Add(ps.posGrid[x][newY][newZ]);
 				}
 				//bottom left
@@ -184,48 +97,18 @@ public class DecayPropagation : MonoBehaviour {
 				newZ = z - 1;
 				if(newY >= 0 && newZ >= 0 && newY <= 34 && newZ <= 34 && !finished.Contains(ps.posGrid[x][newY][newZ]))
 				{
-					if(newY > 5 || (newY == 0 && newZ >= 6 && newZ < 29) || (newY == 1 && newZ >= 5 && newZ < 30) ||
-					   (newY == 2 && newZ >= 4 && newZ < 31)|| (newY == 3 && newZ >= 3 && newZ < 32)|| 
-					   (newY == 4 && newZ >= 2 && newZ < 33) || (newY == 5 && newZ >= 1 && newZ < 34))
-					{
 						if(ps.posGrid[x][newY][newZ] != null)
 						{
 							next.Enqueue(ps.posGrid[x][newY][newZ]);
 							cc = ps.posGrid[x][newY][newZ].getVox().GetComponent<CubeController>();
 							
-							if(myvox.getDecay()-1 > 0 && cc.getDecay() == 0)
+							if(myvox.getDecay()-1 > 0 && cc.getDecay() != 4)
 							{
 								cc.setMaterial(myvox.getDecay()-1);
 								ps.posGrid[x][newY][newZ].setDecay(myvox.getDecay()-1);
-								if(myvox.getDecay() == 4)
-								{
-									ps.posGrid[x][newY][newZ].setCount(3);
-								}
-								else if(myvox.getDecay() == 3)
-								{
-									ps.posGrid[x][newY][newZ].setCount(3);
-								}
-								else if(myvox.getDecay() == 2)
-								{
-									ps.posGrid[x][newY][newZ].setCount(2);
-								}
-								else if(myvox.getDecay() == 1)
-								{
-									ps.posGrid[x][newY][newZ].setCount(0);
-								}
-								else
-								{
-									ps.posGrid[x][newY][newZ].setCount(0);
-								}
+
 							}
 						}
-					}
-					else if(cc.getDecay() != 4 && ps.posGrid[x][newY][newZ] != null)
-					{
-						cc.setMaterial(0);
-						ps.posGrid[x][newY][newZ].setDecay(0);
-						ps.posGrid[x][newY][newZ].setCount(0);
-					}
 					finished.Add(ps.posGrid[x][newY][newZ]);
 				}
 				//bottom
@@ -233,96 +116,36 @@ public class DecayPropagation : MonoBehaviour {
 				newZ = z - 1;
 				if(newY >= 0 && newZ >= 0 && newY <= 34 && newZ <= 34 && !finished.Contains(ps.posGrid[x][newY][newZ]))
 				{
-					if(newY > 5 || (newY == 0 && newZ >= 6 && newZ < 29) || (newY == 1 && newZ >= 5 && newZ < 30) ||
-					   (newY == 2 && newZ >= 4 && newZ < 31)|| (newY == 3 && newZ >= 3 && newZ < 32)|| 
-					   (newY == 4 && newZ >= 2 && newZ < 33) || (newY == 5 && newZ >= 1 && newZ < 34))
-					{
 						if(ps.posGrid[x][newY][newZ] != null)
 						{
 							next.Enqueue(ps.posGrid[x][newY][newZ]);
 							cc = ps.posGrid[x][newY][newZ].getVox().GetComponent<CubeController>();
 							
-							if(myvox.getDecay()-1 > 0 && cc.getDecay() == 0)
+							if(myvox.getDecay()-1 > 0 && cc.getDecay() != 4)
 							{
 								cc.setMaterial(myvox.getDecay()-1);
 								ps.posGrid[x][newY][newZ].setDecay(myvox.getDecay()-1);
-								if(myvox.getDecay() == 4)
-								{
-									ps.posGrid[x][newY][newZ].setCount(3);
-								}
-								else if(myvox.getDecay() == 3)
-								{
-									ps.posGrid[x][newY][newZ].setCount(3);
-								}
-								else if(myvox.getDecay() == 2)
-								{
-									ps.posGrid[x][newY][newZ].setCount(2);
-								}
-								else if(myvox.getDecay() == 1)
-								{
-									ps.posGrid[x][newY][newZ].setCount(0);
-								}
-								else
-								{
-									ps.posGrid[x][newY][newZ].setCount(0);
-								}
 							}
 						}
-					}
-					else if(cc.getDecay() != 4 && ps.posGrid[x][newY][newZ] != null)
-					{
-						cc.setMaterial(0);
-						ps.posGrid[x][newY][newZ].setDecay(0);
-						ps.posGrid[x][newY][newZ].setCount(0);
-					}
+
 					finished.Add(ps.posGrid[x][newY][newZ]);
 				}
 				//top
 				newZ = z + 1;
 				if(newY >= 0 && newZ >= 0 && newY <= 34 && newZ <= 34 && !finished.Contains(ps.posGrid[x][newY][newZ]))
 				{
-					if(newY > 5 || (newY == 0 && newZ >= 6 && newZ < 29) || (newY == 1 && newZ >= 5 && newZ < 30) ||
-					   (newY == 2 && newZ >= 4 && newZ < 31)|| (newY == 3 && newZ >= 3 && newZ < 32)|| 
-					   (newY == 4 && newZ >= 2 && newZ < 33) || (newY == 5 && newZ >= 1 && newZ < 34))
-					{
 						if(ps.posGrid[x][newY][newZ] != null)
 						{
 							next.Enqueue(ps.posGrid[x][newY][newZ]);
 							cc = ps.posGrid[x][newY][newZ].getVox().GetComponent<CubeController>();
 							
-							if(myvox.getDecay()-1 > 0 && cc.getDecay() == 0)
+							if(myvox.getDecay()-1 > 0 && cc.getDecay() != 4)
 							{
 								cc.setMaterial(myvox.getDecay()-1);
 								ps.posGrid[x][newY][newZ].setDecay(myvox.getDecay()-1);
-								if(myvox.getDecay() == 4)
-								{
-									ps.posGrid[x][newY][newZ].setCount(3);
-								}
-								else if(myvox.getDecay() == 3)
-								{
-									ps.posGrid[x][newY][newZ].setCount(3);
-								}
-								else if(myvox.getDecay() == 2)
-								{
-									ps.posGrid[x][newY][newZ].setCount(2);
-								}
-								else if(myvox.getDecay() == 1)
-								{
-									ps.posGrid[x][newY][newZ].setCount(0);
-								}
-								else
-								{
-									ps.posGrid[x][newY][newZ].setCount(0);
-								}
 							}
 						}
-					}
-					else if(cc.getDecay() != 4 && ps.posGrid[x][newY][newZ] != null)
-					{
-						cc.setMaterial(0);
-						ps.posGrid[x][newY][newZ].setDecay(0);
-						ps.posGrid[x][newY][newZ].setCount(0);
-					}
+
 					finished.Add(ps.posGrid[x][newY][newZ]);
 				}
 				//right
@@ -330,102 +153,45 @@ public class DecayPropagation : MonoBehaviour {
 				newZ = z;
 				if(newY >= 0 && newZ >= 0 && newY <= 34 && newZ <= 34 && !finished.Contains(ps.posGrid[x][newY][newZ]))
 				{
-					if(newY > 5 || (newY == 0 && newZ >= 6 && newZ < 29) || (newY == 1 && newZ >= 5 && newZ < 30) ||
-					   (newY == 2 && newZ >= 4 && newZ < 31)|| (newY == 3 && newZ >= 3 && newZ < 32)|| 
-					   (newY == 4 && newZ >= 2 && newZ < 33) || (newY == 5 && newZ >= 1 && newZ < 34))
-					{
 						if(ps.posGrid[x][newY][newZ] != null)
 						{
 							next.Enqueue(ps.posGrid[x][newY][newZ]);
 							cc = ps.posGrid[x][newY][newZ].getVox().GetComponent<CubeController>();
 							
-							if(myvox.getDecay()-1 > 0 && cc.getDecay() == 0)
+							if(myvox.getDecay()-1 > 0 && cc.getDecay() != 4)
 							{
 								cc.setMaterial(myvox.getDecay()-1);
 								ps.posGrid[x][newY][newZ].setDecay(myvox.getDecay()-1);
-								if(myvox.getDecay() == 4)
-								{
-									ps.posGrid[x][newY][newZ].setCount(3);
-								}
-								else if(myvox.getDecay() == 3)
-								{
-									ps.posGrid[x][newY][newZ].setCount(3);
-								}
-								else if(myvox.getDecay() == 2)
-								{
-									ps.posGrid[x][newY][newZ].setCount(2);
-								}
-								else if(myvox.getDecay() == 1)
-								{
-									ps.posGrid[x][newY][newZ].setCount(0);
-								}
-								else
-								{
-									ps.posGrid[x][newY][newZ].setCount(0);
-								}
+								
 							}
 						}
-					}
-					else if(cc.getDecay() != 4 && ps.posGrid[x][newY][newZ] != null)
-					{
-						cc.setMaterial(0);
-						ps.posGrid[x][newY][newZ].setDecay(0);
-						ps.posGrid[x][newY][newZ].setCount(0);
-					}
+
 					finished.Add(ps.posGrid[x][newY][newZ]);
 				}
 				//left
 				newY = y - 1;
 				if(newY >= 0 && newZ >= 0 && newY <= 34 && newZ <= 34 && !finished.Contains(ps.posGrid[x][newY][newZ]))
 				{
-					if(newY > 5 || (newY == 0 && newZ >= 6 && newZ < 29) || (newY == 1 && newZ >= 5 && newZ < 30) ||
-					   (newY == 2 && newZ >= 4 && newZ < 31)|| (newY == 3 && newZ >= 3 && newZ < 32)|| 
-					   (newY == 4 && newZ >= 2 && newZ < 33) || (newY == 5 && newZ >= 1 && newZ < 34))
-					{
 						if(ps.posGrid[x][newY][newZ] != null)
 						{
 							next.Enqueue(ps.posGrid[x][newY][newZ]);
 							cc = ps.posGrid[x][newY][newZ].getVox().GetComponent<CubeController>();
 							
-							if(myvox.getDecay()-1 > 0 && cc.getDecay() == 0)
+							if(myvox.getDecay()-1 > 0 && cc.getDecay() != 4)
 							{
 								cc.setMaterial(myvox.getDecay()-1);
 								ps.posGrid[x][newY][newZ].setDecay(myvox.getDecay()-1);
-								if(myvox.getDecay() == 4)
-								{
-									ps.posGrid[x][newY][newZ].setCount(3);
-								}
-								else if(myvox.getDecay() == 3)
-								{
-									ps.posGrid[x][newY][newZ].setCount(3);
-								}
-								else if(myvox.getDecay() == 2)
-								{
-									ps.posGrid[x][newY][newZ].setCount(2);
-								}
-								else if(myvox.getDecay() == 1)
-								{
-									ps.posGrid[x][newY][newZ].setCount(0);
-								}
-								else
-								{
-									ps.posGrid[x][newY][newZ].setCount(0);
-								}
+								
 							}
 						}
-					}
-					else if(cc.getDecay() != 4 && ps.posGrid[x][newY][newZ] != null)
-					{
-						cc.setMaterial(0);
-						ps.posGrid[x][newY][newZ].setDecay(0);
-						ps.posGrid[x][newY][newZ].setCount(0);
-					}
+
 					finished.Add(ps.posGrid[x][newY][newZ]);
 				}
 				i++;
 			}
 		}
 		ps.calcTotDecay();
+
 	}
 	
 	// Update is called once per frame

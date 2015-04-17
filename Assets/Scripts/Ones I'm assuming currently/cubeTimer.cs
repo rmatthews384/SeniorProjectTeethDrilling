@@ -52,6 +52,7 @@ public class cubeTimer : MonoBehaviour {
 		{
 			if(cc.getLevel() < 20)
 			{
+				hover = false;
 				timer = 0;
 				Vector3 myposition = this.gameObject.transform.position;
 				Vector3 myoldposition;
