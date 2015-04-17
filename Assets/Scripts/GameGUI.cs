@@ -10,7 +10,9 @@ public class GameGUI : MonoBehaviour {
 	static float change;
 	static float amtChange;
 	static float amtChange2;
-
+	static bool rot =false;
+	static bool window = false;
+	static int finalScore = 0;
 	// Use this for initialization
 	void Start () {
 		timer = 0;
@@ -48,6 +50,8 @@ public class GameGUI : MonoBehaviour {
 		mystyle.normal.textColor = Color.white;
 		string time = countToTime (actualcount);
 		GUI.Label (new Rect (Screen.width / 1.5f, Screen.height / 40, Screen.width / 10, Screen.height / 10), time, mystyle);
+	
+
 		if(GUI.Button (new Rect (Screen.width / 11, Screen.height / 1.45f, Screen.width / 5, Screen.height / 15), "Zoom in"))
 		{
 			//if(Camera.main.fieldOfView >= 40)
@@ -101,14 +105,17 @@ public class GameGUI : MonoBehaviour {
 		}
 		if(GUI.Button (new Rect (Screen.width / 1.4f, Screen.height / 1.2f, Screen.width/5, Screen.height / 15), "Score"))
 		{
-			PoolingSystem.Score();
+			finalScore = PoolingSystem.Score();
+			window = true;
+
 		}
 		
 		if(GUI.Button (new Rect (Screen.width / 1.4f, Screen.height / 1.45f, Screen.width / 5, Screen.height / 15), "Open Wide"))
 		{
 			float current = Camera.main.transform.rotation.eulerAngles.x;
-			if(current == 330){
+			if((int)current == 330){
 				//Camera.main.transform.Rotate(Vector3.right , 30);
+				rot = true;
 				amtChange = 0;
 				amtChange2 = 0;
 				change = 30;
@@ -116,10 +123,25 @@ public class GameGUI : MonoBehaviour {
 				
 			}
 		}
+
+		
+		if(window){
+			//GUIStyle scorstyle = new GUIStyle();
+			//scorstyle.fontSize = 20;
+			GUI.color = new Color(1,1,1, 30);
+			GUI.backgroundColor = Color.black;
+			GUI.Box (new Rect (0, 0, Screen.width, Screen.height), "Results");
+			GUI.Label(new Rect (Screen.width / 2.1f, Screen.height / 15f, Screen.width/8, Screen.height / 20), finalScore.ToString()+"%");
+			if(GUI.Button(new Rect (Screen.width / 2.3f, Screen.height / 8f, Screen.width/8, Screen.height / 20), "Again")){
+				Application.LoadLevel("tooth");
+				window = false;
+			}
+		}
+
 	}
 	// Update is called once per frame
 	void Update () {
-		if(actualcount > 0)
+		if(actualcount > 0 && !window)
 		{
 			timer += Time.deltaTime;
 			if(timer >= 1f)
@@ -128,6 +150,35 @@ public class GameGUI : MonoBehaviour {
 				actualcount -= 1;
 			}
 		}
-	
+		//float current = Camera.main.transform.rotation.eulerAngles.x;
+
+		if(rot){
+			if(amtChange < 30){
+				ow = 10*Time.deltaTime;
+				Camera.main.transform.Rotate(Vector3.right , ow, Space.Self);
+				amtChange += ow;
+				Vector3 myPos = Camera.main.transform.position;
+				myPos.y += .03f;
+				Camera.main.transform.position = myPos;
+			}
+			else if( amtChange >29 && amtChange < 100){
+				ow = 10* Time.deltaTime;
+				amtChange += ow;
+			}
+			else if(amtChange > 99 && amtChange2 < 30){
+				ow = 10*Time.deltaTime;
+				Camera.main.transform.Rotate(Vector3.right , -ow, Space.Self);
+				amtChange2 += ow;
+				Vector3 myPos = Camera.main.transform.position;
+				myPos.y -= .03f;
+				Camera.main.transform.position = myPos;
+			}
+			else{
+				rot = false;
+				Quaternion qua=new Quaternion();
+				qua.eulerAngles = new Vector3(330, 0, 0);
+				transform.rotation=qua;
+			}
+		}
 	}
 }

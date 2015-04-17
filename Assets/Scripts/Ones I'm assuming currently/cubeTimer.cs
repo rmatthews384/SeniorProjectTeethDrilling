@@ -9,7 +9,7 @@ public class cubeTimer : MonoBehaviour {
 	CubeController cc;
 	Global global;
 	static float cubeDim = 0.019f;
-
+	
 	
 	// Use this for initialization
 	void Start () 
@@ -27,33 +27,16 @@ public class cubeTimer : MonoBehaviour {
 		hover = true;
 	}
 	
-	void OnMouseExit()
-	{
-		hover = false;
-	}
-	
-	// Update is called once per frame
-	void Update () 
-	{
-		if (Input.GetMouseButtonDown(0))
-		{
-			global.setMouseDown(true);
-		}
-		if (Input.GetMouseButtonUp (0))
-		{
-			global.setMouseDown(false);
-		}
+	void OnMouseOver(){
 		
-		if(global.getMouseDown() && hover)
-		{
+	
+		
+		if(Input.GetMouseButton(0)){
 			timer += Time.deltaTime;
-		}
-		if(timer >= .1f)
-		{
-			if(cc.getLevel() < 20)
-			{
-				hover = false;
-				timer = 0;
+
+			if(timer>= .1f){
+
+				PoolingSystemExtensions.DestroyAPS(this.gameObject);
 				Vector3 myposition = this.gameObject.transform.position;
 				Vector3 myoldposition;
 				myposition.z += cubeDim;
@@ -70,11 +53,14 @@ public class cubeTimer : MonoBehaviour {
 				myposition = myoldposition;
 				myposition.y -= cubeDim;
 				pS.InstantiateAPS("cube", myposition, Quaternion.identity);
+				timer = 0;
 			}
-			
-			PoolingSystemExtensions.DestroyAPS(this.gameObject);
-			
 		}
+	}
+	
+
+	void OnMouseExit(){
+		hover = false;
 	}
 }
 

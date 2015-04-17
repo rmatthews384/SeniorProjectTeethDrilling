@@ -140,6 +140,14 @@ public sealed class PoolingSystem : MonoBehaviour {
 	
 	void Start () 
 	{
+		int id = 0;
+		CubeController cc;
+		heavyDecay = new List<Vox>();
+		posGrid = new List<List<List<Vox>>>();
+		midList = new List<List<Vox>>();
+		innerList = new List<Vox>();
+		destroyed = new List<GameObject>();
+		cubeDim = 0.019f;
 		Vector3 startvector;
 		float valueat28 = 0;
 		startvector = new Vector3 (.95f, .95f, 0);
@@ -697,8 +705,7 @@ public sealed class PoolingSystem : MonoBehaviour {
 				}
 			}
 		}
-		
-		Debug.Log(totWork);
+	
 	}
 
 	public static void DestroyAPS(GameObject myObject)
@@ -707,10 +714,10 @@ public sealed class PoolingSystem : MonoBehaviour {
 		myObject.SetActive(false);
 	}
 
-	public static void Score(){
-		int total = 0;
-		int decayDestroy = 0;
-		int enamelDestroy =0;
+	public static int Score(){
+		double total = 0;
+		double decayDestroy = 0;
+		double enamelDestroy =0;
 
 		for(int q = 0; q < destroyed.Count; q++){
 			//print(destroyed[q].GetType());
@@ -721,8 +728,11 @@ public sealed class PoolingSystem : MonoBehaviour {
 				enamelDestroy++;
 			}
 		}
-		Application.LoadLevel("score");
-		Debug.Log("decayDestroy " + decayDestroy +" enamelDestroy " + enamelDestroy + " totDecay " + totWork);
+		total = (int)(((100*decayDestroy/totWork) - (enamelDestroy/50d)));
+		Debug.Log("decayDestroy/totWork " + decayDestroy/totWork*100 +" enamelDestroy/25 " + enamelDestroy/50 + " scale to .05 " + (enamelDestroy/25)*.05 + " "  + total);
+		return (int)total;
+		//Application.LoadLevel("score");
+
 	}
 
 	public GameObject InstantiateAPS (string itemType)
